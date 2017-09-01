@@ -21,11 +21,17 @@ int main(int argc, const char *argv[])
   int split_time[3] = {0,0,0};
   
   printf("C-c to quit program.\n");
-  
-  printf("Input current time \n");
+  printf("Input current time, format: HHMMSS \n");
   scanf("%d", &present_time);
-  printf("Input time for alarm \n");
+  printf("Input time for alarm, format: HHMMSS \n");
   scanf("%d", &time_for_alarm);
+
+  /* In case time is out of normal range. */
+  if((present_time < 0 || present_time > 240000) ||
+     (time_for_alarm < 0 || time_for_alarm > 240000)){
+    printf("Time or alarm out of possible range, 0-240000.\n");
+    return 1;
+  }
   
   do {
     /* Wait until one second has passed */
@@ -40,15 +46,16 @@ int main(int argc, const char *argv[])
     } else {
       printf("ALARM\n");  
     }
-  } while (present_time != time_for_alarm); 
+  } while(present_time != time_for_alarm); 
+
   return 0;
 }
 
-/* Wait one second according to system time */
+/* Wait one second according to system time. */
 void timeWait() {
   int sys_time_now = time(0);
   while(time(0) < sys_time_now+1){
-   /* Loop until time matches */ 
+   /* Loop until time matches. */ 
   }
 }
 
@@ -60,7 +67,7 @@ int addTime (int cur_time) {
   timeToArray(n_time, time_array);
 
   /*
-    Incase seconds exceed 60, if it does also check if minutes exceed 60.
+    In case seconds exceed 60, if it does, also check if minutes exceed 60.
     Also reset time with time % 240000 in case it exceeds it.
   */ 
   if(fmod(time_array[2], 60) == 0){
@@ -74,6 +81,7 @@ int addTime (int cur_time) {
     } 
   }
   n_time = fmod(n_time, 240000);
+
   return n_time;
 }
 
