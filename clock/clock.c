@@ -59,7 +59,7 @@ void timeWait() {
 }
 
 /* Add one second to current time. */
-int addTime (int cur_time) {
+int addTime(int cur_time) {
   /* New time */
   int n_time = cur_time + 1;
   int time_array[3] = {0, 0, 0};
