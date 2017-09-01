@@ -3,14 +3,15 @@
     Description: Simple clock with an alarm function. 
 
     @author Linus Gunnarsson
+    @github linus-dev
 */
 
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
 
-void TimeToArray(int cur_time, int *array_to_sort);
-void TimeWait();
+void timeToArray(int cur_time, int *array_to_sort);
+void timeWait();
 int addTime(int cur_time);
 
 int main(int argc, const char *argv[])
@@ -19,8 +20,7 @@ int main(int argc, const char *argv[])
   int time_for_alarm(0);
   int split_time[3] = {0,0,0};
   
-  printf("C-c to quit program."
-         "The program will continue 30 seconds after the alarm.\n");
+  printf("C-c to quit program.\n");
   
   printf("Input current time \n");
   scanf("%d", &present_time);
@@ -29,23 +29,23 @@ int main(int argc, const char *argv[])
   
   do {
     /* Wait until one second has passed */
-    TimeWait();
+    timeWait();
     /* Add one second to our time */
     present_time = addTime(present_time);
     /* Format the time into an array for easier usage in printing */
-    TimeToArray(present_time, split_time);
+    timeToArray(present_time, split_time);
     /* If it is time for the alarm, print 'ALARM' otherwise, print time */
     if(present_time != time_for_alarm){ 
       printf("%02d:%02d:%02d\n", split_time[0], split_time[1], split_time[2]);
     } else {
       printf("ALARM\n");  
     }
-  } while (present_time != time_for_alarm+30); 
+  } while (present_time != time_for_alarm); 
   return 0;
 }
 
 /* Wait one second according to system time */
-void TimeWait() {
+void timeWait() {
   int sys_time_now = time(0);
   while(time(0) < sys_time_now+1){
    /* Loop until time matches */ 
@@ -57,7 +57,7 @@ int addTime (int cur_time) {
   /* New time */
   int n_time = cur_time + 1;
   int time_array[3] = {0, 0, 0};
-  TimeToArray(n_time, time_array);
+  timeToArray(n_time, time_array);
 
   /*
     Incase seconds exceed 60, if it does also check if minutes exceed 60.
@@ -66,7 +66,7 @@ int addTime (int cur_time) {
   if(fmod(time_array[2], 60) == 0){
     n_time -= 60;
     n_time += 100;
-    TimeToArray(n_time, time_array);
+    timeToArray(n_time, time_array);
 
     if(fmod(time_array[1], 60) == 0){
       n_time -= 6000;
@@ -78,7 +78,7 @@ int addTime (int cur_time) {
 }
 
 /* Splits time to usable format. */
-void TimeToArray(int cur_time, int *array_to_sort){
+void timeToArray(int cur_time, int *array_to_sort){
   int hour = cur_time/10000;
   int minute = fmod((cur_time/pow(10, 3)), 10) * 10;
   int sec = fmod(cur_time, 100);
