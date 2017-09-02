@@ -7,9 +7,10 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h> 
 #include <time.h>
 #include <math.h>
-#include <stdlib.h> 
+#include <string.h>
 
 void timeToArray(int cur_time, int *array_to_sort);
 void timeWait();
@@ -17,7 +18,6 @@ int addTime(int cur_time);
 int getInput();
 
 int main(int argc, const char *argv[]) {
-
   int present_time;
   int time_for_alarm;
   int split_time[3] = {0, 0, 0};
@@ -99,10 +99,19 @@ void timeToArray(int cur_time, int *array_to_sort) {
 /* Get input by fgets to make sure no buffer overflow occurs */
 int getInput() {
   int input_int;
-  char input_buffer[8];
+  char input_buffer[7];
   if (fgets(input_buffer, sizeof(input_buffer), stdin) != NULL) {
     /* strtol, Ignoring end character pointer (NULL) */
     input_int = strtol(input_buffer, NULL, 10); 
   }
+  /*
+    If user decided to input more than allowed,
+    consume the rest of the input, otherwise it
+    will be read by the next input (ALARM).
+  */
+  if (strlen(input_buffer) > 5) {
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
+  }   
   return input_int;
 }
