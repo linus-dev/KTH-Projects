@@ -75,21 +75,20 @@ int addTime(int cur_time) {
     n_time -= 60;
     n_time += 100;
     timeToArray(n_time, time_array);
-
     if (fmod(time_array[1], 60) == 0) {
       n_time -= 6000;
       n_time += 10000;
     } 
   }
   n_time = fmod(n_time, 240000);
-
+  
   return n_time;
 }
 
 /* Splits time to usable format. */
 void timeToArray(int cur_time, int *array_to_sort) {
   int hour = cur_time / 10000;
-  int minute = fmod((cur_time / pow(10, 3)), 10) * 10;
+  float minute = fmod((cur_time / pow(10, 3)), 10) * 10;
   int sec = fmod(cur_time, 100);
   *array_to_sort = hour;
   *(array_to_sort + 1) = minute;
