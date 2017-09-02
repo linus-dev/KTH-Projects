@@ -9,22 +9,24 @@
 #include <stdio.h>
 #include <time.h>
 #include <math.h>
+#include <stdlib.h> 
 
 void timeToArray(int cur_time, int *array_to_sort);
 void timeWait();
 int addTime(int cur_time);
+int getInput();
 
 int main(int argc, const char *argv[]) {
-  int present_time(0);
-  int time_for_alarm(0);
+
+  int present_time;
+  int time_for_alarm;
   int split_time[3] = {0, 0, 0};
   
   printf("C-c to quit program.\n");
   printf("Input current time, format: HHMMSS \n");
-  scanf("%d", &present_time);
+  present_time = getInput(); 
   printf("Input time for alarm, format: HHMMSS \n");
-  scanf("%d", &time_for_alarm);
-
+  time_for_alarm = getInput();
   /* In case time is out of normal range. */
   if ((present_time < 0 || present_time > 240000) ||
       (time_for_alarm < 0 || time_for_alarm > 240000)) {
@@ -92,4 +94,15 @@ void timeToArray(int cur_time, int *array_to_sort) {
   *array_to_sort = hour;
   *(array_to_sort + 1) = minute;
   *(array_to_sort + 2) = sec; 
+}
+
+/* Get input by fgets to make sure no buffer overflow occurs */
+int getInput() {
+  int input_int;
+  char input_buffer[8];
+  if (fgets(input_buffer, sizeof(input_buffer), stdin) != NULL) {
+    /* strtol, Ignoring end character pointer (NULL) */
+    input_int = strtol(input_buffer, NULL, 10); 
+  }
+  return input_int;
 }
