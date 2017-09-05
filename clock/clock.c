@@ -71,11 +71,11 @@ int addTime(int cur_time) {
     In case seconds exceed 60, if it does, also check if minutes exceed 60.
     Also reset time with time % 240000 in case it exceeds it.
   */ 
-  if (fmod(time_array[2], 60) == 0) {
+  if (fmod(time_array[2], 60) == 0 || time_array[2] > 60) {
     n_time -= 60;
     n_time += 100;
     timeToArray(n_time, time_array);
-    if (fmod(time_array[1], 60) == 0) {
+    if (fmod(time_array[1], 60) == 0 || time_array[1] > 60) {
       n_time -= 6000;
       n_time += 10000;
     } 
