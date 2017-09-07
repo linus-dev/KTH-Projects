@@ -39,11 +39,11 @@ int main(int argc, const char *argv[]) {
     timeWait();
     /* Add one second to our time */
     present_time = addTime(present_time);
-    /* Format the time into an array for easier usage in printing */
     timeToArray(present_time, split_time);
-    /* If it is time for the alarm, print 'ALARM' otherwise, print time */
-    if (present_time != time_for_alarm) 
+    
+    if (present_time != time_for_alarm) { 
       printf("%02d:%02d:%02d\n", split_time[0], split_time[1], split_time[2]);
+    }
     
   } while (present_time != time_for_alarm); 
   printf("ALARM\n");  
@@ -53,9 +53,7 @@ int main(int argc, const char *argv[]) {
 /* Wait one second according to system time. */
 void timeWait() {
   int sys_time_now = time(0);
-  while (time(0) < sys_time_now + 1) {
-   /* Loop until time matches. */ 
-  }
+  while (time(0) < sys_time_now + 1);
 }
 
 /* Add one second to current time. */
