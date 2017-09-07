@@ -88,7 +88,7 @@ int addTime(int cur_time) {
 /* Splits time to usable format. */
 void timeToArray(int cur_time, int *array_to_sort) {
   int hour = cur_time / 10000;
-  float minute = fmod((cur_time / pow(10, 3)), 10) * 10;
+  int minute = (cur_time / 100) % 100;
   int sec = fmod(cur_time, 100);
   *array_to_sort = hour;
   *(array_to_sort + 1) = minute;
