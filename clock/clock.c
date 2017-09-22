@@ -12,10 +12,10 @@
 #include <math.h>
 #include <string.h>
 
-void timeToArray(int cur_time, int *array_to_sort);
-void timeWait();
-int addTime(int cur_time);
-int getInput();
+void TimeToArray(int cur_time, int *array_to_sort);
+void TimeWait();
+int AddTime(int cur_time);
+int GetInput();
 
 int main(int argc, const char *argv[]) {
   int present_time;
@@ -24,9 +24,9 @@ int main(int argc, const char *argv[]) {
   
   printf("C-c to quit program.\n");
   printf("Input current time, format: HHMMSS \n");
-  present_time = getInput(); 
+  present_time = GetInput(); 
   printf("Input time for alarm, format: HHMMSS \n");
-  time_for_alarm = getInput();
+  time_for_alarm = GetInput();
   /* In case time is out of normal range. */
   if ((present_time < 0 || present_time > 240000) ||
       (time_for_alarm < 0 || time_for_alarm > 240000)) {
@@ -36,10 +36,10 @@ int main(int argc, const char *argv[]) {
   
   do {
     /* Wait until one second has passed */
-    timeWait();
+    TimeWait();
     /* Add one second to our time */
-    present_time = addTime(present_time);
-    timeToArray(present_time, split_time);
+    present_time = AddTime(present_time);
+    TimeToArray(present_time, split_time);
     
     if (present_time != time_for_alarm) { 
       printf("%02d:%02d:%02d\n", split_time[0], split_time[1], split_time[2]);
@@ -51,17 +51,17 @@ int main(int argc, const char *argv[]) {
 }
 
 /* Wait one second according to system time. */
-void timeWait() {
+void TimeWait() {
   int sys_time_now = time(0);
   while (time(0) < sys_time_now + 1);
 }
 
 /* Add one second to current time. */
-int addTime(int cur_time) {
+int AddTime(int cur_time) {
   /* New time */
   int n_time = cur_time + 1;
   int time_array[3] = {0, 0, 0};
-  timeToArray(n_time, time_array);
+  TimeToArray(n_time, time_array);
 
   /*
     In case seconds exceed 60, if it does, also check if minutes exceed 60.
@@ -70,7 +70,7 @@ int addTime(int cur_time) {
   if ((time_array[2] % 60) == 0 || time_array[2] > 60) {
     n_time -= 60;
     n_time += 100;
-    timeToArray(n_time, time_array);
+    TimeToArray(n_time, time_array);
     if ((time_array[1] % 60) == 0 || time_array[1] > 60) {
       n_time -= 6000;
       n_time += 10000;
@@ -82,7 +82,7 @@ int addTime(int cur_time) {
 }
 
 /* Splits time to usable format. */
-void timeToArray(int cur_time, int *array_to_sort) {
+void TimeToArray(int cur_time, int *array_to_sort) {
   int hour = cur_time / 10000;
   int minute = (cur_time / 100) % 100;
   int sec = cur_time % 100;
@@ -92,7 +92,7 @@ void timeToArray(int cur_time, int *array_to_sort) {
 }
 
 /* Get input by fgets to make sure no buffer overflow occurs */
-int getInput() {
+int GetInput() {
   int input_int;
   char input_buffer[7];
   if (fgets(input_buffer, sizeof(input_buffer), stdin) != NULL) {
