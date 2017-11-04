@@ -29,18 +29,16 @@ class Temperaturer {
       double minTemp = t[vecka][0];
       double maxTemp = t[vecka][0];
       double sumTemp = 0;
-      double avgTemp = 0;
       for (int matning = 0; matning < antalMatningarPerVecka; matning++) {
         double curTemp = t[vecka][matning];
         minTemp = curTemp < minTemp ? curTemp : minTemp;
         maxTemp = curTemp > maxTemp ? curTemp : maxTemp;
         sumTemp += curTemp;
-        avgTemp += curTemp;
       }
       minT[vecka] = minTemp;
       maxT[vecka] = maxTemp;
       sumT[vecka] = sumTemp;
-      avgT[vecka] = avgTemp/antalMatningarPerVecka;
+      avgT[vecka] = sumTemp/antalMatningarPerVecka;
       System.out.println("Week: " + (vecka + 1) + " Low: " + minTemp + 
                          " High: " + maxTemp + " Avg: " + avgT[vecka]);
     }
