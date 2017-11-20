@@ -125,22 +125,14 @@ public class Chessboard {
     public abstract void markReachableFields();
     public abstract void unmarkReachableFields();
     protected void markDiagonals() {
-      int side = 0;
       for (int i = 1; i <= NUMBER_OF_ROWS; i++) {
-        side = i;
-        for (int adj = 0; adj < 2; adj++) {
-          /* int cord = (int)Math.round(Math.tan(Math.PI / 4 +
-                                                 Math.PI / 2 * adj) * i); */
-          side *= -1;
-          if (Chessboard.this.isValidField((char)(this.row + side),
-                                           (byte)(this.column + i))) {
-            Chessboard.this.fields[this.row + side - FIRST_ROW]
-                                  [this.column + i - FIRST_COLUMN].mark();
-          }
-          if (Chessboard.this.isValidField((char)(this.row + side),
-                                           (byte)(this.column - i))) {
-            Chessboard.this.fields[this.row + side - FIRST_ROW]
-                                  [this.column - i - FIRST_COLUMN].mark();
+        for (int adj = 0; adj <= 3; adj++) {
+          int sin = (int)Math.sin(Math.PI / 2 + Math.PI * Math.floor(adj/2));
+          int cos = (int)Math.cos(Math.PI * adj);
+          if (Chessboard.this.isValidField((char)(this.row + i*sin),
+                                           (byte)(this.column + i*cos))) {
+            Chessboard.this.fields[this.row + i*sin - FIRST_ROW]
+                                  [this.column + i*cos - FIRST_COLUMN].mark();
           }
         }
       }
@@ -189,18 +181,13 @@ public class Chessboard {
     }
     protected void unmarkDiagonals() {
       for (int i = 1; i <= NUMBER_OF_ROWS; i++) {
-        for (int adj = 0; adj < 2; adj++) {
-          int cord = (int)Math.round(Math.tan(Math.PI / 4 +
-                                              Math.PI / 2 * adj) * i);
-          if (Chessboard.this.isValidField((char)(this.row + cord),
-                                           (byte)(this.column + i))) {
-            Chessboard.this.fields[this.row + cord - FIRST_ROW]
-                                  [this.column + i - FIRST_COLUMN].unmark();
-          }
-          if (Chessboard.this.isValidField((char)(this.row + cord),
-                                           (byte)(this.column - i))) {
-            Chessboard.this.fields[this.row + cord - FIRST_ROW]
-                                  [this.column - i - FIRST_COLUMN].unmark();
+        for (int adj = 0; adj <= 3; adj++) {
+          int sin = (int)Math.sin(Math.PI / 2 + Math.PI * Math.floor(adj/2));
+          int cos = (int)Math.cos(Math.PI * adj);
+          if (Chessboard.this.isValidField((char)(this.row + i*sin),
+                                           (byte)(this.column + i*cos))) {
+            Chessboard.this.fields[this.row + i*sin - FIRST_ROW]
+                                  [this.column + i*cos - FIRST_COLUMN].unmark();
           }
         }
       }
