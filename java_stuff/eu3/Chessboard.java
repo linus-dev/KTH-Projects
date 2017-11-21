@@ -180,10 +180,12 @@ public class Chessboard {
       }
     }
     protected void unmarkDiagonals() {
+      int sin = 0;
+      int cos = 0;
       for (int i = 1; i <= NUMBER_OF_ROWS; i++) {
         for (int adj = 0; adj <= 3; adj++) {
-          int sin = (int)Math.sin(Math.PI / 2 + Math.PI * Math.floor(adj/2));
-          int cos = (int)Math.cos(Math.PI * adj);
+          sin = (int)Math.sin(Math.PI / 2 + Math.PI * Math.floor(adj/2));
+          cos = (int)Math.cos(Math.PI * adj);
           if (Chessboard.this.isValidField((char)(this.row + i*sin),
                                            (byte)(this.column + i*cos))) {
             Chessboard.this.fields[this.row + i*sin - FIRST_ROW]
