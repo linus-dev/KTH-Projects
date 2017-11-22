@@ -13,6 +13,5 @@ public interface Pline {
   void AddToFront(Point vertex, String vertex_name);
 
   void Remove(String vertex_name);
-
   java.util.Iterator<Point> iterator();
 }

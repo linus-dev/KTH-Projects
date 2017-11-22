@@ -8,11 +8,13 @@ public class NPolyline implements Pline {
     }
   }
   private Node first_node;
+  private Node last_node;
   private String colour = "black";
   private int width = 1; /* Pixels */
 
   public NPolyline() {
     this.first_node = null;
+    this.last_node = null;
   }
   public NPolyline(Point[] vertices) {
     if (vertices.length > 0) {
@@ -23,6 +25,7 @@ public class NPolyline implements Pline {
         node.next_node = new Node(new Point(vertices[pos++]));
         node = node.next_node;
       }
+      this.last_node = node;
     }
   }
   public String ToString() {
@@ -58,13 +61,11 @@ public class NPolyline implements Pline {
   }
   public void AddVertex(Point vertex) {
     if (this.first_node != null) {
-      Node node = this.first_node;
-      while (node.next_node != null) {
-        node = node.next_node; 
-      }
-      node.next_node = new Node(new Point(vertex));
+      this.last_node.next_node = new Node(new Point(vertex));
+      this.last_node = this.last_node.next_node;
     } else {
       this.first_node = new Node(new Point(vertex));
+      this.last_node = this.first_node;
     }
   }
   public void AddToFront(Point vertex, String vertex_name) {
@@ -90,7 +91,7 @@ public class NPolyline implements Pline {
   public void Remove(String vertex_name) {
   }
   
-  public class PolyIterator { 
+  public class PolyIterator implements java.util.Iterator<Point> { 
     private Node current = null;
     private Node returned = null;
     public PolyIterator() {
@@ -101,12 +102,17 @@ public class NPolyline implements Pline {
     public boolean hasNext() {
       return current.next_node != null;    
     }
-    public Point Vertex() throws java.util.NoSuchElementException {
-      
-      return vertex;
+    
+    public Point next() throws java.util.NoSuchElementException {
+      if (this.current == null) {
+        throw new java.util.NoSuchElementException("No element");
+      }
+      returned = current;
+      current = current.next_node; 
+      return returned.vertex;
     }
   }
-  java.util.Iterator<Point> iterator() {
+  public java.util.Iterator<Point> iterator() {
     return new PolyIterator();
   }
 }

@@ -22,7 +22,6 @@ class SelectPolyline {
       System.out.println(polylines[short_index].ToString());
     }
   }
-
   public static Point RandomPoint() {
     String n = "" + (char) (65 + rand.nextInt(26));
     int x = rand.nextInt(11);

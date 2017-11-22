@@ -1,4 +1,4 @@
-public class Polyline {
+public class Polyline implements Pline {
   private Point[] vertices;
   private String colour = "black";
   private int width = 1;
@@ -183,29 +183,26 @@ public class Polyline {
     }
   }
   
-  public class PolylineIterator {
+  public class PolyIterator implements java.util.Iterator<Point> {
     private int current = -1;
-    public PolylineIterator() {
+    public PolyIterator() {
       if (Polyline.this.vertices.length > 0) {
         current = 0;
       }
     }
-    public boolean VerticesExists() {
-      return current != -1;
+    public boolean hasNext() {
+      return Polyline.this.vertices[current + 1] != null;
     }
-    public Point Vertex() throws java.util.NoSuchElementException {
-      if (!this.VerticesExists()) {
+    public Point next() throws java.util.NoSuchElementException {
+      if (this.current == -1 || Polyline.this.vertices[current] == null)  {
         throw new java.util.NoSuchElementException("End of iteration");
       }
       Point vertex = Polyline.this.vertices[current];
+      current++;
       return vertex;
     }
-    public void Step() {
-      if (current >= 0 && current < Polyline.this.vertices.length - 1) {
-        current++;
-      } else {
-        current = -1;
-      }
-    }
+  }
+  public java.util.Iterator<Point> iterator() {
+    return new PolyIterator();
   }
 }
