@@ -57,7 +57,13 @@ public class NPolyline implements Pline {
     this.width = width;
   }
   public double GetLength() {
-    return 0;
+    double sum = 0;
+    Node node = this.first_node;
+    while (node.next_node != null) {
+      sum += node.vertex.Distance(node.next_node.vertex);
+      node = node.next_node; 
+    }
+    return sum;
   }
   public void AddVertex(Point vertex) {
     if (this.first_node != null) {
