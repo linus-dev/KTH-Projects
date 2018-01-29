@@ -24,7 +24,7 @@ main:
 	syscall
 	nop
 	# wait a little
-	li	$a0,2
+	li	$a0,1000
 	jal	delay
 	nop
 	# call tick
@@ -75,6 +75,17 @@ tiend:	sw	$t0,0($a0)	# save updated result
   # you can write your code for subroutine "hexasc" below this line
   #
 delay:
+  PUSH $a0
+  loop_outer:
+    addi $t0, $zero, 6
+    loop_inner:
+      subi $t0, $t0, 1
+      bne $t0, 0, loop_inner
+      nop
+    subi $a0, $a0, 1
+    bne $a0, 0, loop_outer
+    nop
+  POP $a0
   jr $ra
   nop
 
@@ -82,11 +93,14 @@ hexasc:
   andi $v0, $a0, 0xF
   slti $t0, $v0, 0x0A
   beq $t0, $0, alfa
+  nop
   addi $v0, $v0, 0x30
   jr $ra
+  nop
   alfa:
     addi $v0, $v0, 0x37
   jr $ra
+  nop
 
 time2string:
   PUSH $ra
@@ -97,6 +111,7 @@ time2string:
   addi $t5, $zero, 0       #Function counter
   loop:
     beq $t5, 2, skip
+    nop
     and $t6, $a1, $t4  #Mask
     srlv $t6, $t6, $t3 #Shift to lowest 4 bits.
     subi $t3, $t3, 0x4 #Subtract 4 from shift counter.
@@ -104,19 +119,24 @@ time2string:
     
     move $a0, $t6  #Move current num to argument.
     jal hexasc     #Convert to ASCII.
+    nop
     sb $v0, 0($t2) #Save in memory
     
     addi $t5, $t5, 1 #Counter +1
     add $t2, $t2, 1  #Memory +1
     
     bne $t5, 5, loop
+    nop
     beq $t5, 5, return
+    nop
     skip:
       add $t2, $t2, 1
       addi $t5, $t5, 1
       j loop
+      nop
   return:
     POP $a0
     POP $ra
     jr $ra
+    nop
    
