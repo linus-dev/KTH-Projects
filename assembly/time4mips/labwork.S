@@ -19,20 +19,22 @@
   #
   # Please add your own code below this line
   #
-  .global
-	.data
-	.align 2
-	.text
+.global delay
+.global hexasc
+.global time2string
+.data
+.align 2
+.text
 
 delay:
   PUSH $a0
   loop_outer:
     addi $t0, $zero, 6
     loop_inner:
-      subi $t0, $t0, 1
+      addi $t0, $t0, -1
       bne $t0, 0, loop_inner
       nop
-    subi $a0, $a0, 1
+    addi $a0, $a0, -1
     bne $a0, 0, loop_outer
     nop
   POP $a0
@@ -64,7 +66,7 @@ time2string:
     nop
     and $t6, $a1, $t4  #Mask
     srlv $t6, $t6, $t3 #Shift to lowest 4 bits.
-    subi $t3, $t3, 0x4 #Subtract 4 from shift counter.
+    addi $t3, $t3, -4 #Subtract 4 from shift counter.
     srl $t4, $t4, 0x4  #Shift mask 4 steps left.
     
     move $a0, $t6  #Move current num to argument.

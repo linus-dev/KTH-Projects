@@ -1,0 +1,42 @@
+No symbol "sieves" in current context.
+Breakpoint 1 at 0x5555555548ad: file sieves.c, line 15.
+Starting program: /home/linus/dev/kth-projects/cpp/computer_science_IS1200/lab_2/a.out 8
+
+Breakpoint 1, print_sieves (n=8) at sieves.c:15
+warning: Source file is more recent than executable.
+15	void print_sieves(int n) {
+value requires 2863282696 bytes, which is more than max-value-size
+Watchpoint 2: sieves
+Continuing.
+
+Watchpoint 2: sieves
+
+Old value = <unreadable>
+New value = "\002\000\000\000\000\000\000"
+0x00005555555548dc in print_sieves (n=8) at sieves.c:16
+16	  char sieves[n];
+Continuing.
+
+Watchpoint 2: sieves
+
+Old value = "\002\000\000\000\000\000\000"
+New value = "\000\000\000\000\000\000\000"
+print_sieves (n=8) at sieves.c:17
+17	  memset(sieves, 1, n);
+Continuing.
+
+Watchpoint 2: sieves
+
+Old value = "\000\000\000\000\000\000\000"
+New value = "\001\001\001\001\001\001\001\001"
+0x00007ffff777518f in ?? ()
+Continuing.
+
+Watchpoint 2 deleted because the program has left the block in
+which its expression is valid.
+
+Watchpoint 2 deleted because the program has left the block in
+which its expression is valid.
+0x00007ffff7ab3ccb in ?? ()
+Continuing.
+[Inferior 1 (process 2801) exited normally]
