@@ -28,8 +28,10 @@
 
 delay:
   PUSH $a0
+  ble $a0, $zero, delay_return
+  nop
   loop_outer:
-    addi $t0, $zero, 6
+    addi $t0, $zero, 7000 
     loop_inner:
       addi $t0, $t0, -1
       bne $t0, 0, loop_inner
@@ -37,6 +39,7 @@ delay:
     addi $a0, $a0, -1
     bne $a0, 0, loop_outer
     nop
+  delay_return:
   POP $a0
   jr $ra
   nop
@@ -57,10 +60,14 @@ hexasc:
 time2string:
   PUSH $ra
   PUSH $a0
+  addi $t2, $zero, 0x3a
+  sb $t2, 2($a0)
   add $t2, $zero, $a0      #Return addr
   addi $t3, $zero, 12      #Shift counter
   addi $t4, $zero, 0xF000  #Mask
   addi $t5, $zero, 0       #Function counter
+  andi $t7, $a1,   0xFFFF  #Current time (NEW SHITTY CODE)
+  beq $t7, 0x0, HOUR
   loop:
     beq $t5, 2, skip
     nop
@@ -76,7 +83,7 @@ time2string:
     
     addi $t5, $t5, 1 #Counter +1
     add $t2, $t2, 1  #Memory +1
-    
+
     bne $t5, 5, loop
     nop
     beq $t5, 5, return
@@ -85,6 +92,20 @@ time2string:
       add $t2, $t2, 1
       addi $t5, $t5, 1
       j loop
+      nop
+    # Really shitty code.
+    HOUR:
+      addi $a3, $zero, 0x48
+      sb $a3, 0($t2)
+      addi $a3, $zero, 0x4f
+      sb $a3, 1($t2)
+      addi $a3, $zero, 0x55
+      sb $a3, 2($t2)
+      addi $a3, $zero, 0x52
+      sb $a3, 3($t2)
+      addi $a3, $zero, 0x20
+      sb $a3, 4($t2)
+      j return
       nop
   return:
     POP $a0

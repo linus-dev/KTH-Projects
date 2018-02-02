@@ -7,7 +7,7 @@ int *list1;
 int *list2;
 int count = 0;
 
-void copycodes(char *text, int *list) {
+void copycodes(char *text, int *list, int *count) {
   char t = *text;
   while (t != '\0') {
     t = *text;
@@ -17,13 +17,13 @@ void copycodes(char *text, int *list) {
     *list = t;
     text++;
     list++;
-    count++;
+    *count++;
   }
 }
 
 void work() {
- copycodes(text1, list1); 
- copycodes(text2, list2); 
+ copycodes(text1, list1, &count); 
+ copycodes(text2, list2, &count); 
 }
 
 

@@ -24,7 +24,7 @@ main:
 	syscall
 	nop
 	# wait a little
-	li	$a0,1000
+	li	$a0,1
 	jal	delay
 	nop
 	# call tick
@@ -105,16 +105,20 @@ hexasc:
 time2string:
   PUSH $ra
   PUSH $a0
+  addi $t2, $zero, 0x3a
+  sb $t2, 2($a0)
   add $t2, $zero, $a0      #Return addr
   addi $t3, $zero, 12      #Shift counter
   addi $t4, $zero, 0xF000  #Mask
   addi $t5, $zero, 0       #Function counter
+  andi $t7, $a1,   0xFFFF  #Current time (NEW SHITTY CODE)
+  beq $t7, 0x0, HOUR
   loop:
     beq $t5, 2, skip
     nop
     and $t6, $a1, $t4  #Mask
     srlv $t6, $t6, $t3 #Shift to lowest 4 bits.
-    subi $t3, $t3, 0x4 #Subtract 4 from shift counter.
+    addi $t3, $t3, -4 #Subtract 4 from shift counter.
     srl $t4, $t4, 0x4  #Shift mask 4 steps left.
     
     move $a0, $t6  #Move current num to argument.
@@ -124,7 +128,9 @@ time2string:
     
     addi $t5, $t5, 1 #Counter +1
     add $t2, $t2, 1  #Memory +1
-    
+    addi $t7, $t7, 1
+    andi $t7, $t7, 0xffff
+
     bne $t5, 5, loop
     nop
     beq $t5, 5, return
@@ -133,6 +139,20 @@ time2string:
       add $t2, $t2, 1
       addi $t5, $t5, 1
       j loop
+      nop
+    # Really shitty code.
+    HOUR:
+      addi $a3, $zero, 0x48
+      sb $a3, 0($t2)
+      addi $a3, $zero, 0x4f
+      sb $a3, 1($t2)
+      addi $a3, $zero, 0x55
+      sb $a3, 2($t2)
+      addi $a3, $zero, 0x52
+      sb $a3, 3($t2)
+      addi $a3, $zero, 0x20
+      sb $a3, 4($t2)
+      j return
       nop
   return:
     POP $a0

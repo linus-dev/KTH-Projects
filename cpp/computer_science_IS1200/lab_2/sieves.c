@@ -11,7 +11,18 @@ void print_number(int n) {
   printf(" %10d ", n);
   printed_columns++;
 }
-
+void mean_sieves(char *sieves, int n) {
+  int mean = 0;
+  int j = 0;
+  /* Print array and resulting numbers */
+  for (int i = 0; i < n; i++) {
+    if (*(sieves + i)) {
+      mean += (i + 2);
+      j++;
+    }
+  }
+  printf("\n %d \n", mean/j);
+}
 void print_sieves(int n) {
   char sieves[n];
   memset(sieves, 1, n);
@@ -31,13 +42,13 @@ void print_sieves(int n) {
       }*/
     }
   }
-
   /* Print array and resulting numbers */
   for (int i = 0; i < n; i++) {
     if (sieves[i]) {
       print_number(i + 2);
     }
   }
+  mean_sieves(sieves, n);
   printf("\n");
   /* ------ */
 }

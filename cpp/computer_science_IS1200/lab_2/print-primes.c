@@ -41,7 +41,7 @@ void print_primes(int n) {
   // with the following formatting. Note that
   // the number of columns is stated in the define
   // COLUMNS
-  for (int i = 2; i < n; i++) {
+  for (int i = 2; i <= n; i++) {
     if (is_prime(i)) {
       print_number(i);
     }
