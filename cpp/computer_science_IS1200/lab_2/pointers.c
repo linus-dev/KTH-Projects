@@ -17,7 +17,7 @@ void copycodes(char *text, int *list, int *count) {
     *list = t;
     text++;
     list++;
-    *count++;
+    (*count)++;
   }
 }
 
