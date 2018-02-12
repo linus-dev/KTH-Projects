@@ -57,10 +57,10 @@ void labwork( void )
   }
 }
 
-int setTime(int time_c, int push) {
-  push--;
-  if (getbtns() >> (push - 1) & 0x1) {
-    return (time_c & ~(0xF << (push * 4))) | (getsw() << (push * 4)); 
+int setTime(int time_c, int btn) {
+  btn--;
+  if (getbtns() >> (btn - 1) & 0x1) {
+    return (time_c & ~(0xF << (btn * 4))) | (getsw() << (btn * 4)); 
   } else {
     return time_c;
   }
