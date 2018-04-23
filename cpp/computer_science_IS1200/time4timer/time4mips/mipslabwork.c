@@ -41,12 +41,12 @@ void labinit( void )
 /* This function is called repetitively from the main program */
 void labwork( void )
 { 
+  mytime = setTime(mytime, 2);
+  mytime = setTime(mytime, 3);
+  mytime = setTime(mytime, 4);
   if ((IFS(0) >> 8) & 0x1) {
     timeoutcount++;
     if (timeoutcount % 10 == 0) {
-      mytime = setTime(mytime, 2);
-      mytime = setTime(mytime, 3);
-      mytime = setTime(mytime, 4);
       time2string( textstring, mytime );
       display_string( 3, textstring );
       display_update();

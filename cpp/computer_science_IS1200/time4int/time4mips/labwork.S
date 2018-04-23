@@ -22,6 +22,7 @@
 .global delay
 .global hexasc
 .global time2string
+.global enable_interrupt
 .data
 .align 2
 .text
@@ -43,6 +44,7 @@ delay:
   POP $a0
   jr $ra
   nop
+
 
 hexasc:
   andi $v0, $a0, 0xF
@@ -113,3 +115,6 @@ time2string:
     jr $ra
     nop
    
+enable_interrupt:
+  ei 
+  jr $ra
