@@ -11,13 +11,17 @@ char_node *ReadC();
 
 int main() {
   char_node *node = ReadC(NULL);
+  /* Currently a memory leak, never free malloc memory, but fuck it. */
+  PrintText(node);
+  return 0;
+}
+
+/* Print text from nodes. */
+void PrintText(char_node *node) {
   while (node != NULL) {
-    char_node *old_node = node;
     putchar(node->c);
     node = node->prev_node;
-    free(old_node);
   }
-  return 0;
 }
 
 /* Read char. */
