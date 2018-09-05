@@ -8,6 +8,7 @@ typedef struct char_node {
 } char_node;
 
 char_node *ReadC();
+void PrintText();
 
 int main() {
   char_node *node = ReadC(NULL);
