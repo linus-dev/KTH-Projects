@@ -1,3 +1,7 @@
+/*
+ * This implements a stack (linked list) and uses it to read one character
+ * at a time to then pop it off the stack in reverse order.
+*/
 import java.util.*;
 import edu.princeton.cs.algs4.StdIn;
 

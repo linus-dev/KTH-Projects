@@ -11,9 +11,11 @@ class Algo {
     test.Add(Integer.valueOf(100));
     test.Add(Integer.valueOf(340));
     test.Add(Integer.valueOf(210));
-    for(Integer b : test) {
-      System.out.println(b);
-    }
+    test.Add(Integer.valueOf(128));
+    test.Remove(1);
+    test.Add(Integer.valueOf(256));
+    test.Remove(2);
+    System.out.println(test.toString());
   }
 }
 

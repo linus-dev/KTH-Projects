@@ -8,7 +8,7 @@ int main() {
 }
 
 void ReadTest(char input) {
-  (input != '\n' ? ReadTest(getchar()) : NULL);
+  input != '\n' ? ReadTest(getchar()) : NULL;
   putchar(input);
 }
 

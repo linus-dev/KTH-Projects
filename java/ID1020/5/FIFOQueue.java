@@ -13,10 +13,12 @@ class FIFOQueue<T> implements Iterable<T> {
 
   private Node<T> first;
   private Node<T> last;
+  private int total_nodes;
 
   public FIFOQueue() {
     first = null;
     last  = null;
+    total_nodes = 0;
   }
   /*
    *  Add to Queue.
@@ -31,11 +33,11 @@ class FIFOQueue<T> implements Iterable<T> {
     }
     if (old != null) {
       old.next = this.last;
-      first.previous = this.last;
+      first.previous = null;
     }
-
     this.last.next = null;
     this.last.previous = old;
+    total_nodes++;
   }
   
   /*
@@ -44,17 +46,51 @@ class FIFOQueue<T> implements Iterable<T> {
   public T Pop() {
     Node<T> old_first = this.first;
     this.first = old_first.next;
+    total_nodes--;
     return old_first.item;
   }
   
+  public void Remove(int index) {
+    int current_index = total_nodes; 
+    Iterator<T> i = this.iterator();
+    while (i.hasNext()) {
+      if (index == current_index) {
+        i.remove();
+        break;
+      }
+      current_index--;
+      i.next();
+    }
+  }
+
+  public String toString() {
+    StringBuilder data = new StringBuilder();
+    int i = 0;
+    for(T item : this) {
+      data.append("[");
+      data.append(item);
+      data.append("]");
+      data.append(" ");
+    }
+    return data.toString();
+  }
+
+  /* I can not be fucking bothered... */
+  private void SetFirstNext() {
+    this.first = first.next;
+  }
+  private void SetLastPrevious() {
+    this.last = last.previous;
+  }
+
   public Iterator<T> iterator()  {
         return new ListIterator<T>(first);  
     }
 
-  private class ListIterator<T> implements Iterator<T> {
-    private Node<T> current;
+  private class ListIterator<E> implements Iterator<E> {
+    private Node<E> current;
 
-    public ListIterator(Node<T> first) {
+    public ListIterator(Node<E> first) {
       current = first;
     }
 
@@ -63,12 +99,23 @@ class FIFOQueue<T> implements Iterable<T> {
     }
     
     public void remove() {
-      throw new UnsupportedOperationException();
+      Node<E> deleted = current;
+      if (deleted.previous != null) {
+        deleted.previous.next = deleted.next;
+      } else {
+        SetFirstNext();
+      }
+      if (deleted.next != null) {
+        deleted.next.previous = deleted.previous;
+      } else {
+        SetLastPrevious();
+      }
+      total_nodes--;
     }
 
-    public T next() {
+    public E next() {
       if (!hasNext()) throw new NoSuchElementException();
-      T item = current.item;
+      E item = current.item;
       current = current.next; 
       return item;
     }
