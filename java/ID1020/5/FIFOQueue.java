@@ -49,7 +49,10 @@ class FIFOQueue<T> implements Iterable<T> {
     total_nodes--;
     return old_first.item;
   }
-  
+ 
+  /*
+   * Remove index from the queue
+   */
   public void Remove(int index) {
     int current_index = total_nodes; 
     Iterator<T> i = this.iterator();
@@ -75,14 +78,6 @@ class FIFOQueue<T> implements Iterable<T> {
     return data.toString();
   }
 
-  /* I can not be fucking bothered... */
-  private void SetFirstNext() {
-    this.first = first.next;
-  }
-  private void SetLastPrevious() {
-    this.last = last.previous;
-  }
-
   public Iterator<T> iterator()  {
         return new ListIterator<T>(first);  
     }
@@ -103,12 +98,14 @@ class FIFOQueue<T> implements Iterable<T> {
       if (deleted.previous != null) {
         deleted.previous.next = deleted.next;
       } else {
-        SetFirstNext();
+        /* If previous is null then we are on the first node. */
+        FIFOQueue.this.first = FIFOQueue.this.first.next;
       }
       if (deleted.next != null) {
         deleted.next.previous = deleted.previous;
       } else {
-        SetLastPrevious();
+        /* If next is null then we are on the last node. */
+        FIFOQueue.this.last = FIFOQueue.this.last.previous;
       }
       total_nodes--;
     }
@@ -119,5 +116,17 @@ class FIFOQueue<T> implements Iterable<T> {
       current = current.next; 
       return item;
     }
+  }
+  
+  public static void main(String[] args) {
+    FIFOQueue<Integer> test = new FIFOQueue<Integer>();
+    test.Add(Integer.valueOf(100));
+    test.Add(Integer.valueOf(340));
+    test.Add(Integer.valueOf(210));
+    test.Add(Integer.valueOf(128));
+    test.Remove(1);
+    test.Add(Integer.valueOf(256));
+    test.Remove(2);
+    System.out.println(test.toString());
   }
 }

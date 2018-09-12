@@ -1,3 +1,6 @@
+/*
+ * The program shows an example of a circular linked list.
+ */
 import java.util.*;
 import edu.princeton.cs.algs4.StdIn;
 
@@ -7,7 +10,8 @@ class Stack<T> implements Iterable<T> {
     private Node<T> next;
     private Node<T> previous;
   }
-
+  
+  /* First, last, and total nodes. */
   private Node<T> first;
   private Node<T> last;
   private int total_nodes;
@@ -17,7 +21,10 @@ class Stack<T> implements Iterable<T> {
     last  = null;
     total_nodes = 0;
   }
-
+  
+  /*
+   * Add to the back of the queue.
+   */
   public void AddToBack(T item) {
     Node<T> old = this.last;
     this.last = new Node<T>();
@@ -37,11 +44,15 @@ class Stack<T> implements Iterable<T> {
     total_nodes++;
   }
   
+  /*
+   * Add to the front of the queue.
+   */
   public void AddToFront(T item) {
     Node<T> old = this.first;
     this.first = new Node<T>();
     this.first.item = item;
-    
+   
+    /* If the old is not null then we have to set previous ( circular ) */
     if (old != null) {
       old.previous = this.first;
     }
@@ -55,19 +66,23 @@ class Stack<T> implements Iterable<T> {
   }
   
   public T PopFromFront() {
-    Node<T> old_first = this.first;
-    this.first = old_first.next;
-    this.first.previous = this.last;
-    total_nodes--;
-    return old_first.item;
+    if (this.first != null) {
+      Node<T> old_first = this.first;
+      this.first = old_first.next;
+      this.first.previous = this.last;
+      total_nodes--;
+      return old_first.item;
+    }
   }
   
   public T PopFromBack() {
-    Node<T> old_last = this.last;
-    this.last = old_last.previous;
-    this.last.next = this.first;
-    total_nodes--;
-    return old_last.item;
+    if (this.last != null) {
+      Node<T> old_last = this.last;
+      this.last = old_last.previous;
+      this.last.next = this.first;
+      total_nodes--;
+      return old_last.item;
+    }
   }
   
   public String toString() {
@@ -111,4 +126,15 @@ class Stack<T> implements Iterable<T> {
       return item;
     }
   }
+  
+  public static void main(String[] args) {
+    Stack<Integer> test = new Stack<Integer>();
+    test.PopFromBack();
+    test.AddToBack(Integer.valueOf(100));
+    test.AddToFront(Integer.valueOf(340));
+    test.AddToBack(Integer.valueOf(210));
+    System.out.println(test.toString());
+    System.out.println("---");
+  }
+
 }

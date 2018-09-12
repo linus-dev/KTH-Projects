@@ -1,3 +1,6 @@
+/*
+ * The program takes input from the user and prints it in reverse order, until new line.
+ */
 #include "stdio.h"
 
 void ReadTest(char input);

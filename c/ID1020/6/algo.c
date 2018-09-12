@@ -1,3 +1,7 @@
+/*
+ * This program checks for a balance between paranthesis, braces, and brackets.
+ * Author: Linus Berg, 2018
+ */
 #include "stdio.h"
 
 typedef struct {
@@ -20,7 +24,12 @@ int main() {
   return 0;
 }
 
+/* 
+ * Recursive method to keep reading until end of file, also supply it with the
+ * structure to save the findings.
+ */
 void ReadTest(balance *bal, char input) {
+  /* Here you can add more things to check a balance. */
   switch (input) {
     case '(': {
       bal->para++;
@@ -52,6 +61,7 @@ void ReadTest(balance *bal, char input) {
   }
   if (input != EOF) {
     putchar(input);
+    /* Recursive call. */
     ReadTest(bal, getchar());
   }
 }
