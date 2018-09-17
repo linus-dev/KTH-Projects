@@ -18,9 +18,13 @@ class FIFOQueue<T> implements Iterable<T> {
     first = null;
     last  = null;
   }
-  /*
-   *  Add to Queue.
-   */
+
+  /**
+    * Add item to the back of the queue.
+    * @author Linus Berg 
+    * @param <T> : Item to add.
+    * @date 12/09/2018
+    */
   public void Add(T item) {
     Node<T> old = this.last;
     this.last = new Node<T>();
@@ -38,9 +42,12 @@ class FIFOQueue<T> implements Iterable<T> {
     this.last.previous = old;
   }
   
-  /*
-   *  Pop element from the queue (FIFO).
-   */
+  /**
+    * Pop element that came in first (FIFO).
+    * @author Linus Berg 
+    * @return <T> : Item in first node.  
+    * @date 12/09/2018
+    */
   public T Pop() {
     Node<T> old_first = this.first;
     this.first = old_first.next;
@@ -67,7 +74,9 @@ class FIFOQueue<T> implements Iterable<T> {
     }
 
     public T next() {
-      if (!hasNext()) throw new NoSuchElementException();
+      if (!hasNext()) {
+        throw new NoSuchElementException();
+      }
       T item = current.item;
       current = current.next; 
       return item;

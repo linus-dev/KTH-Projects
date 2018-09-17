@@ -22,10 +22,14 @@ class Stack<T> implements Iterable<T> {
     total_nodes = 0;
   }
   
-  /*
-   * Add to the back of the queue.
-   */
-  public void AddToBack(T item) {
+
+  /**
+    * Add item to the back of the queue.
+    * @author Linus Berg 
+    * @param <T> : Item to add.
+    * @date 12/09/2018
+    */
+ public void AddToBack(T item) {
     Node<T> old = this.last;
     this.last = new Node<T>();
     this.last.item = item;
@@ -44,9 +48,12 @@ class Stack<T> implements Iterable<T> {
     total_nodes++;
   }
   
-  /*
-   * Add to the front of the queue.
-   */
+  /**
+    * Add item to the front of the queue.
+    * @author Linus Berg 
+    * @param <T> : Item to add.
+    * @date 12/09/2018
+    */
   public void AddToFront(T item) {
     Node<T> old = this.first;
     this.first = new Node<T>();
@@ -65,6 +72,12 @@ class Stack<T> implements Iterable<T> {
     total_nodes++;
   }
   
+  /**
+    * Pop item from the front of the queue.
+    * @author Linus Berg 
+    * @return <T> : Item in front node.
+    * @date 12/09/2018
+    */
   public T PopFromFront() {
     if (this.first != null) {
       Node<T> old_first = this.first;
@@ -75,6 +88,12 @@ class Stack<T> implements Iterable<T> {
     }
   }
   
+  /**
+    * Pop item from the back of the queue.
+    * @author Linus Berg 
+    * @return <T> : Item in back node.
+    * @date 12/09/2018
+    */
   public T PopFromBack() {
     if (this.last != null) {
       Node<T> old_last = this.last;
@@ -85,6 +104,12 @@ class Stack<T> implements Iterable<T> {
     }
   }
   
+  /**
+    * Text based representation of the nodes.
+    * @author Linus Berg 
+    * @return String : String from stringbuilder.
+    * @date 12/09/2018
+    */
   public String toString() {
     StringBuilder data = new StringBuilder();
     int i = 0;
@@ -120,7 +145,9 @@ class Stack<T> implements Iterable<T> {
     }
 
     public T next() {
-      if (!hasNext()) throw new NoSuchElementException();
+      if (!hasNext()) {
+        throw new NoSuchElementException();
+      }
       T item = current.item;
       current = current.next; 
       return item;

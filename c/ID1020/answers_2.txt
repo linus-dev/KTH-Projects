@@ -1,0 +1,2 @@
+8. 2 swaps and 3 comparisons (checks that the 5 is not larger than 4?).
+9. 

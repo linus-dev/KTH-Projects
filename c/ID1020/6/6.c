@@ -24,10 +24,13 @@ int main() {
   return 0;
 }
 
-/* 
- * Recursive method to keep reading until end of file, also supply it with the
- * structure to save the findings.
- */
+/**
+  * Recursively read characters from stdin and update the balance data.
+  * @author Linus Berg 
+  * @param balance* : Struct of balance data to update.
+  * @param char : Previous character input.
+  * @date 12/09/2018
+  */
 void ReadTest(balance *bal, char input) {
   /* Here you can add more things to check a balance. */
   switch (input) {
