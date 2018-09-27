@@ -4,7 +4,7 @@
 int main() {
   char c;
   while((c = getchar()) != EOF) {
-    putchar(c != '\n' && c != ' ' && !isalpha(c) ? ' ' : c);
+    putchar(c != '\n' && !isalpha(c) ? ' ' : c);
   }
   return 0;
 }
