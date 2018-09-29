@@ -1,7 +1,7 @@
 import java.util.*;
 import edu.princeton.cs.algs4.*;
 
-public class two_sto {
+public class five_sto {
   public static class OST<Key extends Comparable<Key>, Value> {
     private static final int INIT_CAPACITY = 2;
     private Key[] keys;
@@ -203,28 +203,39 @@ public class two_sto {
   }
 
   public static void FrequencyCounter(int min_length) {
-    int distinct = 0, words = 0;
+    int distinct = 0;
+    int words = 0;
+    int hashes = 0;
     int minlen = min_length;
-    OST<String, Integer> st = new OST<String, Integer>();
+    OST<Integer, Integer> st = new OST<Integer, Integer>();
+    OST<String, Integer> stw = new OST<String, Integer>();
 
     // compute frequency counts
     while (!StdIn.isEmpty()) {
-      String key = StdIn.readString();
-      if (key.length() < minlen) continue;
-      words++;
+      /* Word key */
+      String w_key = StdIn.readString();
+      int key = w_key.hashCode();
+      
+      if (stw.contains(w_key)) {
+        stw.put(w_key, stw.get(w_key) + 1);
+      } else {
+        stw.put(w_key, 1);
+        words++;
+      }
+
       if (st.contains(key)) {
         st.put(key, st.get(key) + 1);
-      }
-      else {
+      } else {
         st.put(key, 1);
         distinct++;
       }
+      hashes++;
     }
 
     // find a key with the highest frequency count
-    String max = "";
+    int max = 0;
     st.put(max, 0);
-    for (String word : st.keys()) {
+    for (int word : st.keys()) {
       if (st.get(word) > st.get(max)) {
         max = word;
       }
@@ -232,7 +243,9 @@ public class two_sto {
 
     StdOut.println(max + " " + st.get(max));
     StdOut.println("distinct = " + distinct);
-    StdOut.println("words    = " + words);
+    StdOut.println("hashes = " + hashes);
+    StdOut.println("words = " + words);
+    StdOut.println("relation(words/hashes) = " + (double)words/distinct);
   } 
 
   public static void main(String[] args) {

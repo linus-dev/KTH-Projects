@@ -1,11 +1,11 @@
 import java.util.*;
 import edu.princeton.cs.algs4.*;
 
-public class two_sto {
+public class three_sto {
   public static class OST<Key extends Comparable<Key>, Value> {
     private static final int INIT_CAPACITY = 2;
     private Key[] keys;
-    private Value[] vals;
+    private int[] vals;
     private int n = 0;
 
     /**
@@ -21,14 +21,14 @@ public class two_sto {
      */
     public OST(int capacity) { 
       keys = (Key[]) new Comparable[capacity]; 
-      vals = (Value[]) new Object[capacity]; 
+      vals = new int[capacity]; 
     }   
 
     // resize the underlying arrays
     private void resize(int capacity) {
       assert capacity >= n;
       Key[]   tempk = (Key[])   new Comparable[capacity];
-      Value[] tempv = (Value[]) new Object[capacity];
+      int[] tempv = new int[capacity];
       for (int i = 0; i < n; i++) {
         tempk[i] = keys[i];
         tempv[i] = vals[i];
@@ -56,7 +56,7 @@ public class two_sto {
      */
     public boolean contains(Key key) {
       if (key == null) throw new IllegalArgumentException("argument to contains() is null");
-      return get(key) != null;
+      return get(key) != -1;
     }
     
     /**
@@ -82,7 +82,7 @@ public class two_sto {
 
         n--;
         keys[n] = null;  // to avoid loitering
-        vals[n] = null;
+        vals[n] = -1;
 
         // resize if 1/4 full
         if (n > 0 && n == keys.length/4) resize(keys.length/2);
@@ -91,12 +91,12 @@ public class two_sto {
     /**
      * Returns the value associated with the given key in this symbol table.
      */
-    public Value get(Key key) {
+    public int get(Key key) {
       if (key == null) throw new IllegalArgumentException("argument to get() is null"); 
-      if (isEmpty()) return null;
+      if (isEmpty()) return -1;
       int i = rank(key); 
       if (i < n && keys[i].compareTo(key) == 0) return vals[i];
-      return null;
+      return -1;
     } 
 
     /**
@@ -122,10 +122,10 @@ public class two_sto {
      * Inserts the specified key-value pair into the symbol table, overwriting the old 
      * value with the new value if the symbol table already contains the specified key.
      */
-    public void put(Key key, Value val)  {
+    public void put(Key key, int val)  {
       if (key == null) throw new IllegalArgumentException("first argument to put() is null"); 
 
-      if (val == null) {
+      if (val == -1) {
         delete(key);
         return;
       }
@@ -149,7 +149,7 @@ public class two_sto {
       vals[i] = val;
       n++;
     } 
-
+    
    /**
      * Returns the smallest key in this symbol table.
      */
@@ -200,8 +200,40 @@ public class two_sto {
       if (contains(hi)) queue.enqueue(keys[rank(hi)]);
       return queue; 
     }
-  }
+    
+    public Key[] GetLargest(int n, int x) {
+      int size = this.n;
+      Key[] keys_sort = this.keys.clone();
+      int[] vals_sort = this.vals.clone();
+      
+      if (n < 0 || (n + x) > size || (n + x) < 0) {
+        throw new IllegalArgumentException("Arguments larger than array size");
+      }
+      boolean printed = false;
+      for (int i = 1; i < size; i++) {
+        /* If the previous element is greater than the current, swap them. */
+        for (int j = i; j > 0 && (vals_sort[j] > vals_sort[j-1]); j--) {
+          /* Move values */
+          int tmp = vals_sort[j];
+          vals_sort[j] = vals_sort[j - 1];
+          vals_sort[j - 1] = tmp;
 
+          /* Move keys */
+          Key tmp_k = keys_sort[j];
+          keys_sort[j] = keys_sort[j - 1];
+          keys_sort[j - 1] = tmp_k;
+        }
+      }
+      
+      for (int i = n; i < (n + x); i++) {
+        System.out.print(i + " largest: ");
+        System.out.print(keys_sort[i] + " : ");
+        System.out.println(vals_sort[i]);
+      }
+      return keys_sort;
+    }
+  }
+  
   public static void FrequencyCounter(int min_length) {
     int distinct = 0, words = 0;
     int minlen = min_length;
@@ -221,6 +253,8 @@ public class two_sto {
       }
     }
 
+    st.GetLargest(0, 10);
+    
     // find a key with the highest frequency count
     String max = "";
     st.put(max, 0);

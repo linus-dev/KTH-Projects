@@ -1,7 +1,7 @@
 import java.util.*;
 import edu.princeton.cs.algs4.*;
 
-public class two_sto {
+public class six_sto {
   public static class OST<Key extends Comparable<Key>, Value> {
     private static final int INIT_CAPACITY = 2;
     private Key[] keys;
@@ -205,18 +205,17 @@ public class two_sto {
   public static void FrequencyCounter(int min_length) {
     int distinct = 0, words = 0;
     int minlen = min_length;
-    OST<String, Integer> st = new OST<String, Integer>();
+    OST<String, List> st = new OST<String, List>();
 
     // compute frequency counts
+    int index = 0;
     while (!StdIn.isEmpty()) {
       String key = StdIn.readString();
       if (key.length() < minlen) continue;
-      words++;
       if (st.contains(key)) {
-        st.put(key, st.get(key) + 1);
-      }
-      else {
-        st.put(key, 1);
+        st.get(key).add(index);
+      } else {
+        st.put(key, new ArrayList());
         distinct++;
       }
     }
