@@ -215,21 +215,15 @@ public class six_sto {
       if (st.contains(key)) {
         st.get(key).add(index);
       } else {
-        st.put(key, new ArrayList());
+        List index_list = new ArrayList();
+        index_list.add(index);
+        st.put(key, index_list);
         distinct++;
       }
+      index++;
     }
-
-    // find a key with the highest frequency count
-    String max = "";
-    st.put(max, 0);
-    for (String word : st.keys()) {
-      if (st.get(word) > st.get(max)) {
-        max = word;
-      }
-    }
-
-    StdOut.println(max + " " + st.get(max));
+    
+    System.out.println(st.get("the"));
     StdOut.println("distinct = " + distinct);
     StdOut.println("words    = " + words);
   } 
