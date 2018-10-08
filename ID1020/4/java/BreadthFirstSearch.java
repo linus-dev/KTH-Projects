@@ -19,7 +19,7 @@ public class BreadthFirstSearch {
         // all its neighbors, provided they haven't yet been visited
         while (!queue.isEmpty()) {
             String v = queue.dequeue();
-            for (String w : G.adjacentTo(v)) {
+            for (String w : G.adj(v)) {
                 if (!dist.contains(w)) {
                     queue.enqueue(w);
                     dist.put(w, 1 + dist.get(v));
@@ -52,13 +52,18 @@ public class BreadthFirstSearch {
 
 
     public static void main(String[] args) {
-        String filename  = args[0];
-        String delimiter = args[1];
-        Graph G = new Graph(filename, delimiter);
-        String s = args[2];
-        BreadthFirstSearch pf = new BreadthFirstSearch(G, s);
+        // create graph
+        Graph G = new Graph();
         while (!StdIn.isEmpty()) {
-            String t = StdIn.readLine();
+            String v = StdIn.readString();
+            String w = StdIn.readString();
+            G.addEdge(v, w);
+        }
+
+        String s = args[0];
+        BreadthFirstSearch pf = new BreadthFirstSearch(G, s);
+        for (String t : G.vertices()) {
+            StdOut.println(t + "---");
             for (String v : pf.pathTo(t)) {
                 StdOut.println("   " + v);
             }
