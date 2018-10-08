@@ -75,6 +75,39 @@ public class two_bst {
         }
     }
    
+ 
+    public int rank(Key key) {
+        if (key == null) throw new IllegalArgumentException("argument to rank() is null");
+        return rank(key, root);
+    } 
+    public Key min() {
+        if (isEmpty()) throw new NoSuchElementException("calls min() with empty symbol table");
+        return min(root).key;
+    } 
+
+    private Node min(Node x) { 
+        if (x.left == null) return x; 
+        else                return min(x.left); 
+    } 
+    // Number of keys in the subtree less than key.
+    private int rank(Key key, Node x) {
+        if (x == null) return 0; 
+        int cmp = key.compareTo(x.key); 
+        if      (cmp < 0) return rank(key, x.left); 
+        else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right); 
+        else              return size(x.left); 
+    } 
+   public void deleteMin() {
+        if (isEmpty()) throw new NoSuchElementException("Symbol table underflow");
+        root = deleteMin(root);
+    }
+
+    private Node deleteMin(Node x) {
+        if (x.left == null) return x.right;
+        x.left = deleteMin(x.left);
+        x.size = size(x.left) + size(x.right) + 1;
+        return x;
+    }
    /**
      * Removes the specified key and its associated value from this symbol table     
      * (if the key is in this symbol table).    
