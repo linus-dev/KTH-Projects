@@ -1,99 +1,111 @@
 import edu.princeton.cs.algs4.*;
 
+import java.util.NoSuchElementException;
+
 public class Graph {
+  private static final String NEWLINE = System.getProperty("line.separator");
 
-    // symbol table: key = string vertex, value = set of neighboring vertices
-    private ST<String, SET<String>> st;
+  private final int V;
+  private int E;
+  private Bag<Integer>[] adj;
 
-    // number of edges
-    private int E;
-
-    public Graph() {
-        st = new ST<String, SET<String>>();
+  public Graph(int V) {
+    if (V < 0)
+      throw new IllegalArgumentException("Number of vertices must be nonnegative");
+    this.V = V;
+    this.E = 0;
+    adj = (Bag<Integer>[]) new Bag[V];
+    for (int v = 0; v < V; v++) {
+      adj[v] = new Bag<Integer>();
     }
+  }
 
-    public int V() {
-        return st.size();
-    }
-
-    public int E() {
-        return E;
-    }
-    
-    private void validateVertex(String v) {
-        if (!hasVertex(v)) throw new IllegalArgumentException(v + " is not a vertex");
-    }
-
-    public int degree(String v) {
-        validateVertex(v);
-        return st.get(v).size();
-    }
-
-    public void addEdge(String v, String w) {
-        if (!hasVertex(v)) addVertex(v);
-        if (!hasVertex(w)) addVertex(w);
-        if (!hasEdge(v, w)) E++;
-        st.get(v).add(w);
-        st.get(w).add(v);
-    }
-
-    public void addVertex(String v) {
-        if (!hasVertex(v)) st.put(v, new SET<String>());
-    }
-
-    public Iterable<String> vertices() {
-        return st.keys();
-    }
-
-    public Iterable<String> adj(String v) {
-        validateVertex(v);
-        return st.get(v);
-    }
-
-    public boolean hasVertex(String v) {
-        return st.contains(v);
-    }
-
-    public boolean hasEdge(String v, String w) {
+  public Graph(In in) {
+    try {
+      this.V = in.readInt();
+      if (V < 0)
+        throw new IllegalArgumentException("number of vertices in a Graph must be nonnegative");
+      adj = (Bag<Integer>[]) new Bag[V];
+      for (int v = 0; v < V; v++) {
+        adj[v] = new Bag<Integer>();
+      }
+      int E = in.readInt();
+      if (E < 0)
+        throw new IllegalArgumentException("number of edges in a Graph must be nonnegative");
+      for (int i = 0; i < E; i++) {
+        int v = in.readInt();
+        int w = in.readInt();
         validateVertex(v);
         validateVertex(w);
-        return st.get(v).contains(w);
+        addEdge(v, w);
+      }
+    } catch (NoSuchElementException e) {
+      throw new IllegalArgumentException("invalid input format in Graph constructor", e);
     }
+  }
 
-    public String toString() {
-        StringBuilder s = new StringBuilder();
-        for (String v : st) {
-            s.append(v + ": ");
-            for (String w : st.get(v)) {
-                s.append(w + " ");
-            }
-            s.append('\n');
-        }
-        return s.toString();
+  public Graph(Graph G) {
+    this(G.V());
+    this.E = G.E();
+    for (int v = 0; v < G.V(); v++) {
+      // reverse so that adjacency list is in same order as original
+      Stack<Integer> reverse = new Stack<Integer>();
+      for (int w : G.adj[v]) {
+        reverse.push(w);
+      }
+      for (int w : reverse) {
+        adj[v].add(w);
+      }
     }
+  }
 
-    public static void main(String[] args) {
+  public int V() {
+    return V;
+  }
 
-        // create graph
-        Graph graph = new Graph();
-        while (!StdIn.isEmpty()) {
-            String v = StdIn.readString();
-            String w = StdIn.readString();
-            graph.addEdge(v, w);
-        }
+  public int E() {
+    return E;
+  }
 
-        // print out graph
-        StdOut.println(graph);
+  private void validateVertex(int v) {
+    if (v < 0 || v >= V)
+      throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
+  }
 
-        // print out graph again by iterating over vertices and edges
-        for (String v : graph.vertices()) {
-            StdOut.print(v + ": ");
-            for (String w : graph.adj(v)) {
-                StdOut.print(w + " ");
-            }
-            StdOut.println();
-        }
+  public void addEdge(int v, int w) {
+    validateVertex(v);
+    validateVertex(w);
+    E++;
+    adj[v].add(w);
+    adj[w].add(v);
+  }
 
+  public Iterable<Integer> adj(int v) {
+    validateVertex(v);
+    return adj[v];
+  }
+
+  public int degree(int v) {
+    validateVertex(v);
+    return adj[v].size();
+  }
+
+  public String toString() {
+    StringBuilder s = new StringBuilder();
+    s.append(V + " vertices, " + E + " edges " + NEWLINE);
+    for (int v = 0; v < V; v++) {
+      s.append(v + ": ");
+      for (int w : adj[v]) {
+        s.append(w + " ");
+      }
+      s.append(NEWLINE);
     }
+    return s.toString();
+  }
 
+  public static void main(String[] args) {
+    In in = new In(args[0]);
+    Graph G = new Graph(in);
+    StdOut.println(G);
+  }
 }
