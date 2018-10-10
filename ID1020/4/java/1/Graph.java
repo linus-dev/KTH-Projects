@@ -1,15 +1,14 @@
 import edu.princeton.cs.algs4.*;
 
-public class WGraph {
+public class Graph {
 
     // symbol table: key = string vertex, value = set of neighboring vertices
     private ST<String, SET<String>> st;
-    private ST<String, Integer> weights;
 
     // number of edges
     private int E;
 
-    public WGraph() {
+    public Graph() {
         st = new ST<String, SET<String>>();
     }
 
@@ -30,21 +29,16 @@ public class WGraph {
         return st.get(v).size();
     }
 
-    public void addEdge(String v, String w, Integer weight) {
+    public void addEdge(String v, String w) {
         if (!hasVertex(v)) addVertex(v);
         if (!hasVertex(w)) addVertex(w);
         if (!hasEdge(v, w)) E++;
         st.get(v).add(w);
         st.get(w).add(v);
-        weights.put(v + "-" + w, weight);
     }
 
     public void addVertex(String v) {
         if (!hasVertex(v)) st.put(v, new SET<String>());
-    }
-    
-    public Integer getWeight(String v, String w) {
-      weights.get(v + "-" + w);
     }
 
     public Iterable<String> vertices() {
@@ -81,12 +75,11 @@ public class WGraph {
     public static void main(String[] args) {
 
         // create graph
-        WGraph graph = new WGraph();
+        Graph graph = new Graph();
         while (!StdIn.isEmpty()) {
             String v = StdIn.readString();
             String w = StdIn.readString();
-            Integer weight = StdIn.readInt();
-            graph.addEdge(v, w, weight);
+            graph.addEdge(v, w);
         }
 
         // print out graph
