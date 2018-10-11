@@ -1,0 +1,7 @@
+49
+AL-MS
+AR-MS
+AR-OK
+CO-OK
+CO-WY
+Total weight: 60

@@ -70,18 +70,20 @@ public class SymbolDigraph {
     int start = sg.indexOf("AL");
     int pToFind = sg.indexOf("VA");
     DepthFirstDirectedPaths dfs = new DepthFirstDirectedPaths(graph, start);
-
-    if (dfs.hasPathTo(pToFind)) {
-      for (int x : dfs.pathTo(pToFind)) {
-        if (x == start) {
-          StdOut.print(sg.nameOf(x));
-        } else {
-          StdOut.print("-" + sg.nameOf(x));
+    
+    for (int i = 0; i < graph.V(); i++) {
+      if (dfs.hasPathTo(i)) {
+        for (int x : dfs.pathTo(i)) {
+          if (x == start) {
+            StdOut.print(sg.nameOf(x));
+          } else {
+            StdOut.print("-" + sg.nameOf(x));
+          }
         }
+        StdOut.println();
+      } else {
+       // StdOut.printf("%s to %s:  not connected\n", sg.nameOf(start), sg.nameOf(i));
       }
-      StdOut.println();
-    } else {
-      StdOut.printf("%s to %s:  not connected\n", sg.nameOf(start), sg.nameOf(pToFind));
     }
   }
 }

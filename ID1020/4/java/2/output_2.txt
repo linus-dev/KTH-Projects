@@ -1,0 +1,325 @@
+AL---
+   WY
+   NE
+   MO
+   TN
+   AL
+distance 4
+AR---
+   WY
+   CO
+   OK
+   AR
+distance 3
+AZ---
+   WY
+   UT
+   AZ
+distance 2
+CA---
+   WY
+   ID
+   NV
+   CA
+distance 3
+CO---
+   WY
+   CO
+distance 1
+CT---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NY
+   CT
+distance 7
+DC---
+   WY
+   NE
+   MO
+   KY
+   VA
+   DC
+distance 5
+DE---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   DE
+distance 6
+FL---
+   WY
+   NE
+   MO
+   TN
+   AL
+   FL
+distance 5
+GA---
+   WY
+   NE
+   MO
+   TN
+   GA
+distance 4
+IA---
+   WY
+   NE
+   IA
+distance 2
+ID---
+   WY
+   ID
+distance 1
+IL---
+   WY
+   NE
+   IA
+   IL
+distance 3
+IN---
+   WY
+   NE
+   IA
+   IL
+   IN
+distance 4
+KS---
+   WY
+   CO
+   KS
+distance 2
+KY---
+   WY
+   NE
+   MO
+   KY
+distance 3
+LA---
+   WY
+   CO
+   NM
+   TX
+   LA
+distance 4
+MA---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NY
+   MA
+distance 7
+MD---
+   WY
+   NE
+   MO
+   KY
+   VA
+   MD
+distance 5
+ME---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NY
+   MA
+   NH
+   ME
+distance 9
+MI---
+   WY
+   NE
+   IA
+   WI
+   MI
+distance 4
+MN---
+   WY
+   SD
+   MN
+distance 2
+MO---
+   WY
+   NE
+   MO
+distance 2
+MS---
+   WY
+   CO
+   OK
+   AR
+   MS
+distance 4
+MT---
+   WY
+   MT
+distance 1
+NC---
+   WY
+   NE
+   MO
+   TN
+   NC
+distance 4
+ND---
+   WY
+   MT
+   ND
+distance 2
+NE---
+   WY
+   NE
+distance 1
+NH---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NY
+   MA
+   NH
+distance 8
+NJ---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NJ
+distance 6
+NM---
+   WY
+   CO
+   NM
+distance 2
+NV---
+   WY
+   ID
+   NV
+distance 2
+NY---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NY
+distance 6
+OH---
+   WY
+   NE
+   MO
+   KY
+   OH
+distance 4
+OK---
+   WY
+   CO
+   OK
+distance 2
+OR---
+   WY
+   ID
+   OR
+distance 2
+PA---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+distance 5
+RI---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NY
+   CT
+   RI
+distance 8
+SC---
+   WY
+   NE
+   MO
+   TN
+   GA
+   SC
+distance 5
+SD---
+   WY
+   SD
+distance 1
+TN---
+   WY
+   NE
+   MO
+   TN
+distance 3
+TX---
+   WY
+   CO
+   NM
+   TX
+distance 3
+UT---
+   WY
+   UT
+distance 1
+VA---
+   WY
+   NE
+   MO
+   KY
+   VA
+distance 4
+VT---
+   WY
+   NE
+   MO
+   KY
+   OH
+   PA
+   NY
+   VT
+distance 7
+WA---
+   WY
+   ID
+   WA
+distance 2
+WI---
+   WY
+   NE
+   IA
+   WI
+distance 3
+WV---
+   WY
+   NE
+   MO
+   KY
+   WV
+distance 4
+WY---
+   WY
+distance 0
