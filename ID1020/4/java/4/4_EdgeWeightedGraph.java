@@ -63,20 +63,10 @@ public class EdgeWeightedGraph {
     }
   }
 
-  /**
-   * Returns the number of vertices in this edge-weighted graph.
-   *
-   * @return the number of vertices in this edge-weighted graph
-   */
   public int V() {
     return V;
   }
 
-  /**
-   * Returns the number of edges in this edge-weighted graph.
-   *
-   * @return the number of edges in this edge-weighted graph
-   */
   public int E() {
     return E;
   }
@@ -87,12 +77,6 @@ public class EdgeWeightedGraph {
       throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V - 1));
   }
 
-  /**
-   * Adds the undirected edge {@code e} to this edge-weighted graph.
-   *
-   * @param  e the edge
-   * @throws IllegalArgumentException unless both endpoints are between {@code 0} and {@code V-1}
-   */
   public void addEdge(Edge e) {
     int v = e.either();
     int w = e.other(v);
@@ -103,37 +87,16 @@ public class EdgeWeightedGraph {
     E++;
   }
 
-  /**
-   * Returns the edges incident on vertex {@code v}.
-   *
-   * @param  v the vertex
-   * @return the edges incident on vertex {@code v} as an Iterable
-   * @throws IllegalArgumentException unless {@code 0 <= v < V}
-   */
   public Iterable<Edge> adj(int v) {
     validateVertex(v);
     return adj[v];
   }
 
-  /**
-   * Returns the degree of vertex {@code v}.
-   *
-   * @param  v the vertex
-   * @return the degree of vertex {@code v}
-   * @throws IllegalArgumentException unless {@code 0 <= v < V}
-   */
   public int degree(int v) {
     validateVertex(v);
     return adj[v].size();
   }
 
-  /**
-   * Returns all edges in this edge-weighted graph.
-   * To iterate over the edges in this edge-weighted graph, use foreach notation:
-   * {@code for (Edge e : G.edges())}.
-   *
-   * @return all edges in this edge-weighted graph, as an iterable
-   */
   public Iterable<Edge> edges() {
     Bag<Edge> list = new Bag<Edge>();
     for (int v = 0; v < V; v++) {
@@ -153,13 +116,6 @@ public class EdgeWeightedGraph {
     return list;
   }
 
-  /**
-   * Returns a string representation of the edge-weighted graph.
-   * This method takes time proportional to <em>E</em> + <em>V</em>.
-   *
-   * @return the number of vertices <em>V</em>, followed by the number of edges <em>E</em>,
-   *         followed by the <em>V</em> adjacency lists of edges
-   */
   public String toString() {
     StringBuilder s = new StringBuilder();
     s.append(V + " " + E + NEWLINE);
@@ -173,38 +129,9 @@ public class EdgeWeightedGraph {
     return s.toString();
   }
 
-  /**
-   * Unit tests the {@code EdgeWeightedGraph} data type.
-   *
-   * @param args the command-line arguments
-   */
   public static void main(String[] args) {
     In in = new In(args[0]);
     EdgeWeightedGraph G = new EdgeWeightedGraph(in);
     StdOut.println(G);
   }
 }
-
-/******************************************************************************
- *  Copyright 2002-2018, Robert Sedgewick and Kevin Wayne.
- *
- *  This file is part of algs4.jar, which accompanies the textbook
- *
- *      Algorithms, 4th edition by Robert Sedgewick and Kevin Wayne,
- *      Addison-Wesley Professional, 2011, ISBN 0-321-57351-X.
- *      http://algs4.cs.princeton.edu
- *
- *
- *  algs4.jar is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  algs4.jar is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with algs4.jar.  If not, see http://www.gnu.org/licenses.
- ******************************************************************************/
