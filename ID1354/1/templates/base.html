@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Linus' fabulously tasty cuisine!</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='reset.css') }}"> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+  <script src="{{ url_for('static', filename='jquery-3.3.1.js') }}"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Bungee+Inline|Faster+One|Rock+Salt" rel="stylesheet"> 
+  {% block head %}
+  {% endblock %}
+</head>
+<body>
+  <div id="content">
+    <h2 id="title">Linus' Fabulously Tasty cuisine!</h2>
+    <div class="grid">
+      <ul id="navbar">
+        <li><a href="/">Home</a></li>
+        <li><a href="/recipes">Recipes</a></li>
+        <li><a href="/calendar">Calendar</a></li>
+      </ul>
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+</body>
+</html>

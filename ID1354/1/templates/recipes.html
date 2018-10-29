@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='recipes.css') }}"> 
+{% endblock %}
+{% block content %}
+<div id="recipes">
+  <ul id="dishes">
+  </ul>
+</div>
+<script>
+  var recipes = {{ recipes_data|tojson }};
+  /* i for index */
+  for (var i in recipes) {
+    $("#recipes #dishes").append('<li><a href="/recipes/' + i + '">' + recipes[i].dish + '</a></li>');
+  }
+</script>
+{% endblock %}

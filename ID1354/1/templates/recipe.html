@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='recipe.css') }}"> 
+{% endblock %}
+{% block content %}
+<div id="recipe">
+  <img id="dish_img" width=256 src=""></img>
+  <br>
+  <div id="dish_info" class="bg_yellow">
+    <h3 id="dish"></h3>
+    <h5 id="prep_time"></h5>
+    <h5 id="servings"></h5>
+  </div>
+  <ul id="ingredients">
+  </ul>
+  <span class="inst">
+  Instructions
+  </span>
+  <p id="instructions">
+  </p>
+</div>
+<script>
+  var recipe = {{ recipe|tojson }};
+  
+  $('#dish').text(recipe.dish);
+  $('#prep_time').text('Prep time: ' + recipe.prep);
+  $('#servings').text('Servings: ' + recipe.servings);
+  $('#instructions').text(recipe.instruction);
+  for (var key in recipe.ingredients) {
+    $("#ingredients").append('<li>'+ key + ' - ' + recipe.ingredients[key] + '</li>');
+  }
+  $('#dish_img').attr("src", recipe.image);
+</script>
+{% endblock %}

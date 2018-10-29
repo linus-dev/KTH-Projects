@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='cal.css') }}"> 
+{% endblock %}
+{% block content %}
+<table id="calendar">
+  <tr>
+    <th>Mon</th>
+    <th>Tue</th>
+    <th>Wed</th>
+    <th>Thu</th>
+    <th>Fri</th>
+    <th>Sat</th>
+    <th>Sun</th>
+  </tr>
+</table>
+<script>
+  var cur_week = 0;
+  var recipes = {{ recipes_data|tojson }};
+  var picture_days = [1, 9, 13, 19, 27];
+  for (var i = 0; i < 5; i++) {
+    var row = $("#calendar tbody").append('<tr>');
+    for (var j = 1; j < 8; j++) {
+      var cell = '<td>';
+      cell += ((cur_week + j) > 31 ? '' : (cur_week + j));
+      if (picture_days.indexOf(cur_week + j) != -1) {
+        var index = Math.floor(Math.random() * recipes.length);
+        var recipe = recipes[index];
+        cell += '<a href="/recipes/' + index + '">';
+        cell += '<img width=128 align="top" src=' + recipe.image + '></img>';
+        cell += '</a>'; 
+      }
+      cell += '</td>';
+      row.append(cell);
+    }
+    row.after('</tr>');
+    cur_week += 7;
+  }
+</script>
+{% endblock %}

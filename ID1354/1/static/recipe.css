@@ -1,0 +1,39 @@
+h3 {
+  margin: 0;
+}
+
+h5 {
+  margin: 0;
+}
+
+.bg_yellow {
+  background-color: #f7ff72;
+}
+
+#dish_img { 
+  border-radius: 2%;
+}
+
+#dish_info {
+  display: inline-block;
+  border-radius: 4%;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  /* Margins? */
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+#ingredients {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+#instructions {
+  white-space: pre-line;
+}
