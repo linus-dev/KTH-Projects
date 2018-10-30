@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='cal.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cal.css') }}"> 
 {% endblock %}
 {% block content %}
 <table id="calendar">
@@ -22,7 +22,7 @@
     var row = $("#calendar tbody").append('<tr>');
     for (var j = 1; j < 8; j++) {
       var cell = '<td>';
-      cell += ((cur_week + j) > 31 ? '' : (cur_week + j));
+      cell += '<span class="day">' + ((cur_week + j) > 31 ? '' : (cur_week + j)) + '</span>';
       if (picture_days.indexOf(cur_week + j) != -1) {
         var index = Math.floor(Math.random() * recipes.length);
         var recipe = recipes[index];

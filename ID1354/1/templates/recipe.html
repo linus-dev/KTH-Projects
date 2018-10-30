@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='recipe.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/recipe.css') }}"> 
 {% endblock %}
 {% block content %}
 <div id="recipe">
+  <!-- Looks better without this 
   <img id="dish_img" width=256 src=""></img>
-  <br>
-  <div id="dish_info" class="bg_yellow">
-    <h3 id="dish"></h3>
-    <h5 id="prep_time"></h5>
-    <h5 id="servings"></h5>
+  -->
+  <div id="dish_info">
+    <span id="dish"></span>
+    <span id="prep_time"></span>
+    <span id="servings"></span>
   </div>
+  <span id="ing">
+    Ingredients
+  </span>
   <ul id="ingredients">
   </ul>
-  <span class="inst">
-  Instructions
+  <span id="inst">
+    Instructions
   </span>
   <p id="instructions">
   </p>
@@ -29,6 +33,6 @@
   for (var key in recipe.ingredients) {
     $("#ingredients").append('<li>'+ key + ' - ' + recipe.ingredients[key] + '</li>');
   }
-  $('#dish_img').attr("src", recipe.image);
+  //$('#dish_img').attr("src", recipe.image);
 </script>
 {% endblock %}

@@ -5,3 +5,8 @@ td {
   vertical-align: top;
   text-align: left;
 }
+
+.day {
+  position: absolute;
+  z-index: 10;
+}

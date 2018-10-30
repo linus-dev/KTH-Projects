@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 recipes_data = [
   {
-    'dish': 'Meatballs',
+    'dish': 'Space Balls',
     'ingredients': {
       'Milk': '1/4 cup',
       'Panko breadcrumbs': '1/4 cup',
@@ -17,12 +17,12 @@ recipes_data = [
       'Black pepper': '1/4 Teaspoon'
     },
     'prep': '8 minutes',
-    'servings': 10,
+    'servings': 8-10,
     'instruction': open('recipes/meatballs.txt', 'r').read(),
     'image': 'https://www.justataste.com/wp-content/uploads/2013/07/baked-orange-chicken-meatballs-recipe.jpg'
   },
   {
-    'dish': 'Pancakes',
+    'dish': 'Wave Cakes',
     'ingredients': {
       'All-purpose flour': '1 1/2 cups',
       'Baking powder': '3 1/2 teaspoons',
@@ -32,10 +32,28 @@ recipes_data = [
       'Egg': 1,
       'Melted butter': '3 Tablespoons'
     },
-    'prep': '9999 hours',
-    'servings': '100-200 pesos',
+    'prep': '10 minutes',
+    'servings': '3-4',
     'instruction': open('recipes/pancakes.txt', 'r').read(),
     'image': 'https://images.media-allrecipes.com/userphotos/720x405/4948036.jpg'
+  },
+  {
+    'dish': 'Arcade Burger',
+    'ingredients': {
+      '10 Tablespoons Salted Butter Softened': '10 Tablespoons',
+      'Medium Sweet Yellow Onion Chopped': 1,
+      'Water': '1 Tablespoon',
+      'Kosher Salt': '3/4 Teaspoon',
+      'Freshly Ground Black Pepper': '3/4 Teaspoon',
+      '90% Lean Ground Beef': '1 lb',
+      'Hamburger Buns (toasted)': 4,
+      'Vegetable oil': '1 Teaspoon',
+      'American Cheese': '4 Slices'
+    },
+    'prep': '10 minutes',
+    'servings': '3-4',
+    'instruction': open('recipes/burger.txt', 'r').read(),
+    'image': 'https://www.thecookierookie.com/wp-content/uploads/2018/07/butter-burgers-recipe-8-of-8-233x350.jpg'
   }
 ]
 
