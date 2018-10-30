@@ -29,12 +29,15 @@
 }
 
 .glow {
-  font-size: 80px;
   color: #fff;
   text-align: center;
   -webkit-animation: glow 1s ease-in-out infinite alternate;
   -moz-animation: glow 1s ease-in-out infinite alternate;
   animation: glow 1s ease-in-out infinite alternate;
+}
+
+.active_nav {
+  color: #ff0080 !important;
 }
 
 @-webkit-keyframes glow {
@@ -116,7 +119,7 @@ h5 {
 
 #navbar li a {
   display: block;
-  color: #00000;
+  color: #f4f4f4;
   text-align: center;
   padding: 8px 8px;
   text-decoration: none;

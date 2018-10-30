@@ -6,6 +6,11 @@
 <div id="recipes">
 </div>
 <script>
+  /* Set navigation active. */
+  //$('#home_nav').addClass('active_nav'); 
+  $('#recipes_nav').addClass('glow-pink-txt'); 
+  //$('#recipes_nav').addClass('glow'); 
+  
   var recipes = {{ recipes_data|tojson }};
   /* D3 because, easy money. */ 
   var table = d3.select('#recipes').append('table');

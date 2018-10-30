@@ -1,6 +1,5 @@
 #linus {
   max-width: 10rem;
-  max-height: 10rem;
   object-fit: contain;
   border: 1px solid white;
   -webkit-filter: contrast(1.2) saturate(2.1);

@@ -15,6 +15,11 @@
   </tr>
 </table>
 <script>
+  /* Set navigation active. */
+  //$('#home_nav').addClass('active_nav'); 
+  $('#calendar_nav').addClass('glow-pink-txt'); 
+  //$('#calendar_nav').addClass('glow'); 
+  
   var cur_week = 0;
   var recipes = {{ recipes_data|tojson }};
   var picture_days = [1, 9, 13, 19, 27];

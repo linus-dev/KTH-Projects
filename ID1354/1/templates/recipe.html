@@ -24,6 +24,10 @@
   </p>
 </div>
 <script>
+  //$('#home_nav').addClass('active_nav'); 
+  $('#recipes_nav').addClass('glow-pink-txt'); 
+  //$('#recipes_nav').addClass('glow'); 
+  
   var recipe = {{ recipe|tojson }};
   
   $('#dish').text(recipe.dish);
