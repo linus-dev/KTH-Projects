@@ -22,6 +22,11 @@
   </span>
   <p id="instructions">
   </p>
+  <div id="comments">
+  <span id="comments_txt">
+    Comments
+  </span>
+  </div>
 </div>
 <script>
   //$('#home_nav').addClass('active_nav'); 
@@ -36,6 +41,10 @@
   $('#instructions').text(recipe.instruction);
   for (var key in recipe.ingredients) {
     $("#ingredients").append('<li>'+ key + ' - ' + recipe.ingredients[key] + '</li>');
+  }
+  
+  for (var i in recipe.comments) {
+    $("#comments").append('\'' + recipe.comments[i][1] + '\' - ' + recipe.comments[i][0]);
   }
   //$('#dish_img').attr("src", recipe.image);
 </script>

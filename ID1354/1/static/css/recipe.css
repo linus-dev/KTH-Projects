@@ -10,6 +10,11 @@ h5 {
   background-color: rgba(255, 0, 128, 0.3);
 }
 
+#comments {
+  border-top: 1px solid white;
+  margin-top: 20px;
+}
+
 #recipe {
   max-width: 55rem;
 }
@@ -34,7 +39,7 @@ h5 {
   margin-bottom: 3px;
 }
 
-#inst, #dish, #ing {
+#inst, #dish, #ing, #comments_txt {
   display: block;
   font-family: road-rage;
   font-size: 1.5rem;

@@ -17,7 +17,8 @@ recipes_data = [
       'Black pepper': '1/4 Teaspoon'
     },
     'prep': '8 minutes',
-    'servings': 8-10,
+    'servings': '8-10',
+    'comments': [['Jackie', 'This was rad!']],
     'instruction': open('recipes/meatballs.txt', 'r').read(),
     'image': 'https://www.justataste.com/wp-content/uploads/2013/07/baked-orange-chicken-meatballs-recipe.jpg'
   },
@@ -34,6 +35,7 @@ recipes_data = [
     },
     'prep': '10 minutes',
     'servings': '3-4',
+    'comments': [['Tony', 'This was bangin\'!']],
     'instruction': open('recipes/pancakes.txt', 'r').read(),
     'image': 'https://images.media-allrecipes.com/userphotos/720x405/4948036.jpg'
   },
@@ -52,10 +54,15 @@ recipes_data = [
     },
     'prep': '10 minutes',
     'servings': '3-4',
+    'comments': [['Anna', 'THE BOMB!!']],
     'instruction': open('recipes/burger.txt', 'r').read(),
     'image': 'https://www.thecookierookie.com/wp-content/uploads/2018/07/butter-burgers-recipe-8-of-8-233x350.jpg'
   }
 ]
+
+@app.route('/ayy')
+def ayy():
+  return render_template('show.html')
 
 @app.route('/')
 def hello_world():
