@@ -13,6 +13,7 @@
   text-decoration-line: none;
   margin-bottom: 5px;
 }
+
 #recipes a:visited {
   color: #f4f4f4;
   text-decoration-line: none;
@@ -47,4 +48,9 @@
 
 #recipes table tr {
   min-height: 3rem;
+}
+
+div.dish {
+  display: inline-block;
+  margin: 0 2rem;
 }

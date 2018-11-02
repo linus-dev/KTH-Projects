@@ -20,7 +20,7 @@ recipes_data = [
     'servings': '8-10',
     'comments': [['Jackie', 'This was rad!']],
     'instruction': open('recipes/meatballs.txt', 'r').read(),
-    'image': 'https://www.justataste.com/wp-content/uploads/2013/07/baked-orange-chicken-meatballs-recipe.jpg'
+    'image': 'https://w0cosv3kke2wxd231fhcn6j9-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/meatballs3.png'
   },
   {
     'dish': 'Wave Cakes',
@@ -37,7 +37,7 @@ recipes_data = [
     'servings': '3-4',
     'comments': [['Tony', 'This was bangin\'!']],
     'instruction': open('recipes/pancakes.txt', 'r').read(),
-    'image': 'https://images.media-allrecipes.com/userphotos/720x405/4948036.jpg'
+    'image': 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/pancakes_1f95e.png'
   },
   {
     'dish': 'Arcade Burger',
@@ -56,7 +56,7 @@ recipes_data = [
     'servings': '3-4',
     'comments': [['Anna', 'THE BOMB!!']],
     'instruction': open('recipes/burger.txt', 'r').read(),
-    'image': 'https://www.thecookierookie.com/wp-content/uploads/2018/07/butter-burgers-recipe-8-of-8-233x350.jpg'
+    'image': 'http://icons.iconarchive.com/icons/pixelkit/tasty-bites/256/hamburger-icon.png'
   }
 ]
 

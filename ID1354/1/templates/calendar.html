@@ -3,17 +3,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/cal.css') }}"> 
 {% endblock %}
 {% block content %}
-<table id="calendar">
-  <tr>
-    <th>Mon</th>
-    <th>Tue</th>
-    <th>Wed</th>
-    <th>Thu</th>
-    <th>Fri</th>
-    <th>Sat</th>
-    <th>Sun</th>
-  </tr>
-</table>
+<div id="calendar">
+</div>
 <script>
   /* Set navigation active. */
   //$('#home_nav').addClass('active_nav'); 
@@ -24,21 +15,23 @@
   var recipes = {{ recipes_data|tojson }};
   var picture_days = [1, 9, 13, 19, 27];
   for (var i = 0; i < 5; i++) {
-    var row = $("#calendar tbody").append('<tr>');
+    var row = $("#calendar").append('<div class="week">');
     for (var j = 1; j < 8; j++) {
-      var cell = '<td>';
+      var cell = '<div class="day">';
       cell += '<span class="day">' + ((cur_week + j) > 31 ? '' : (cur_week + j)) + '</span>';
       if (picture_days.indexOf(cur_week + j) != -1) {
         var index = Math.floor(Math.random() * recipes.length);
         var recipe = recipes[index];
+        cell += '<div class="helper">';
         cell += '<a href="/recipes/' + index + '">';
         cell += '<img width=128 align="top" src=' + recipe.image + '></img>';
         cell += '</a>'; 
+        cell += '</div>';
       }
-      cell += '</td>';
+      cell += '</div>';
       row.append(cell);
     }
-    row.after('</tr>');
+    row.after('</div>');
     cur_week += 7;
   }
 </script>

@@ -13,20 +13,19 @@
   
   var recipes = {{ recipes_data|tojson }};
   /* D3 because, easy money. */ 
-  var table = d3.select('#recipes').append('table');
-  var thead = table.append('thead');
-  var	tbody = table.append('tbody');
-  var row = tbody.append('tr');
+  var wrapper = d3.select('#recipes');
+  var row = wrapper.append('div');
   var current_cell = 0; 
   for (var i in recipes) {
-    row.append('td')
+    row.append('div')
+       .attr('class', 'dish')
        .append('a')
        .attr('href', '/recipes/' + i)
        .attr('class', 'glow-pink-txt')
        .text(recipes[i].dish);
     current_cell++;
     if (current_cell % 2 == 0) {
-      row = tbody.append('tr');
+      row = wrapper.append('div');
     }
   }
 </script>

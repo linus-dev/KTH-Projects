@@ -1,6 +1,12 @@
+@media only screen and (max-width: 350px) {
+  #linus {
+    display: none;
+  }
+}
+
 #linus {
   max-width: 10rem;
-  object-fit: contain;
+  object-fit: cover;
   border: 1px solid white;
   -webkit-filter: contrast(1.2) saturate(2.1);
 }
