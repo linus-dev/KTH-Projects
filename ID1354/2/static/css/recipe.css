@@ -9,7 +9,28 @@ h5 {
 .bg_yellow {
   background-color: rgba(255, 0, 128, 0.3);
 }
+.comment {
+  display: flex;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
 
+.comment input {
+  margin-left: 8px;
+}
+
+#comment_txt {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#comment_post {
+  width: 100%;
+}
 #comments {
   border-top: 1px solid white;
   margin-top: 20px;

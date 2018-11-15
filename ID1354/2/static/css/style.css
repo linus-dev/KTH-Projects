@@ -155,3 +155,73 @@ h5 {
   text-shadow: -1px 1px 8px rgba(255, 0, 128, 0.6), 1px -1px 8px rgba(255, 0, 128, 0.7);
 }
 
+#login_bar {
+  grid-column: 1 / span 3;
+  justify-self: center;
+  margin: 0;
+  padding: 0;
+  font-family: road-rage;
+}
+
+#login_form {
+  display: flex;
+  padding: 2px;
+  justify-content: right;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.text {
+  background-color: rgba(0, 0, 0, 0.45);
+  color: #f4f4f4;
+  height: 100%; 
+  border-radius: 0;
+  border-style: solid;
+  border-color: #f4f4f4;
+  border-width: 1px;
+  padding: 0.3rem;
+}
+
+.btn::-moz-focus-inner { 
+  border: 0;
+}
+
+.btn, .btn:link, .btn:visited {
+  display: inline-block;
+  
+  border-radius: 0;
+  border-style: solid;
+  border-color: #f4f4f4;
+  border-width: 1px;
+  
+  color: #f4f4f4;
+  background-color: rgba(0, 0, 0, 0.45);
+  
+  width: 6rem;
+
+  font-family: "road-rage";
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  text-transform: uppercase;
+  
+  text-shadow: 0;
+  
+  -webkit-transition: color 0.4s, background-color 0.4s, border 0.4s, text-shadow 0.4s;
+  transition: color 0.4s, background-color 0.4s, border 0.4s, text-shadow 0.4s;
+}
+
+
+.btn:hover, .btn:focus {
+  color: #ff0080;
+  border: 1px solid #ff0080;
+  -webkit-transition: background-color 0.3s, color 0.3s, border 0.3s;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
+  text-shadow: -1px 1px 8px rgba(255, 0, 128, 0.6), 1px -1px 8px rgba(255, 0, 128, 0.7);
+}
+
+.btn:active {
+  color: #ff0080;
+  border: 1px solid #ff0080;
+  -webkit-transition: background-color 0.3s, color 0.3s, border 0.3s;
+  transition: background-color 0.3s, color 0.3s, border 0.3s; }
+
