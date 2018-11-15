@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/recipe.css') }}"> 
+{% endblock %}
+{% block content %}
+<div id="recipe">
+  <!-- Looks better without this 
+  <img id="dish_img" width=256 src=""></img>
+  -->
+  <div id="dish_info">
+    <span id="dish"></span>
+    <span id="prep_time"></span>
+    <span id="servings"></span>
+  </div>
+  <span id="ing">
+    Ingredients
+  </span>
+  <ul id="ingredients">
+  </ul>
+  <span id="inst">
+    Instructions
+  </span>
+  <p id="instructions">
+  </p>
+  <div id="comments">
+  <span id="comments_txt">
+    Comments
+  </span>
+  </div>
+</div>
+<script>
+  //$('#home_nav').addClass('active_nav'); 
+  $('#recipes_nav').addClass('glow-pink-txt'); 
+  //$('#recipes_nav').addClass('glow'); 
+  
+  var recipe = {{ recipe|tojson }};
+  
+  $('#dish').text(recipe.dish);
+  $('#prep_time').text('Prep time: ' + recipe.prep);
+  $('#servings').text('Servings: ' + recipe.servings);
+  $('#instructions').text(recipe.instruction);
+  for (var key in recipe.ingredients) {
+    $("#ingredients").append('<li>'+ key + ' - ' + recipe.ingredients[key] + '</li>');
+  }
+  
+  for (var i in recipe.comments) {
+    $("#comments").append('\'' + recipe.comments[i][1] + '\' - ' + recipe.comments[i][0]);
+  }
+  //$('#dish_img').attr("src", recipe.image);
+</script>
+{% endblock %}

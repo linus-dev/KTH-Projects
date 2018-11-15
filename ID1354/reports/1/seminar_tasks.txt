@@ -1,0 +1,17 @@
+Alcander Brancozzi
+Linus Berg <- Me
+Marcus Nilsson
+
+The websites are quite similar in functionality, the main differences occur in the backend,
+I used Python, with a Gunicorn server, utilizing Javascript, CSS, and HTML, while the others
+had pure CSS/HTML websites. They also used Apache and I used Gunicorn (as noted in report,
+if I had to chose I had chosen Nginx to be the outward facing server).
+
+While Alcander and Marcus had static html sites, a lot of mine was dynamic with JSON for the recipes
+and generated html using the Jinja templating engine and Javascript.
+
+Everyone had different solutions to the calendar as well, Alcander used lists mixed with grids,
+Marcus used grids, and I used pure divs for backwards compatability. The scaling as well was quite similar
+for both Marcus and Alcander, while I scaled down vertically instead of scaling the entire calendar.
+
+Other than those, all three sites were quite similar in functionality.

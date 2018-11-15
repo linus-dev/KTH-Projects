@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Linus' fabulously tasty cuisine</title>
+  <link rel="stylesheet" href="/static/css/reset.css"> 
+  <link rel="stylesheet" href="/static/css/style.css"> 
+  <script src="/static/jquery-3.3.1.js"></script>
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto|Bungee+Inline|Faster+One|Rock+Salt" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Permanent+Marker" rel="stylesheet"> 
+  
+  <link rel="stylesheet" href="/static/css/recipes.css"> 
+
+</head>
+<body>
+  <div id="content">
+    <h2 id="title" class="glow">Linus' Fabulously Tasty cuisine</h2>
+    <ul id="navbar">
+      <li><a id="home_nav" href="/index.html">Home</a></li>
+      <li><a id="recipes_nav" href="/recipes.html">Dishes</a></li>
+      <li><a id="calendar_nav" href="/calendar.html">Calendar</a></li>
+    </ul>
+    <div id="content_inc">
+      
+<div id="recipes">
+</div>
+<script>
+  /* Set navigation active. */
+  //$('#home_nav').addClass('active_nav'); 
+  $('#recipes_nav').addClass('glow-pink-txt'); 
+  //$('#recipes_nav').addClass('glow'); 
+  
+  var recipes = [
+  {"comments": [["Jackie", "This was rad!"]],
+  "dish": "Space Balls", 
+  "image": "https://w0cosv3kke2wxd231fhcn6j9-wpengine.netdna-ssl.com/wp-content/uploads/2018/02/meatballs3.png",
+  "ingredients": {
+    "Black pepper": "1/4 Teaspoon",
+    "Cloves garlic, minced": 2,
+    "Ground chicken": "1 1/2 lbs",
+    "Low sodium soy sauce": "2 Tablespoons",
+    "Milk": "1/4 cup",
+    "Minced fresh ginger": "2 Teaspoons",
+    "Minced scallions": "2 Tablespoons",
+    "Panko breadcrumbs": "1/4 cup",
+    "Salt": "1/4 Teaspoon"
+  },
+  "instruction": "Preheat the oven to 500\u00baF. Spray a mini-muffin pan or baking dish with cooking spray.\n\nIn a small bowl, stir together the milk and Panko breadcrumbs and let sit for 5 minutes.\n\nIn a large bowl, combine the ground chicken, garlic, ginger, scallions, soy sauce, salt, pepper and soaked breadcrumbs. Use your hands to thoroughly combine the meat mixture and then shape it into balls using 2 to 3 tablespoons of meat per meatball.\n\nPlace the shaped meatballs into the prepared pan and bake for 12 to 15 minutes until the meatballs are fully cooked. While the meatballs are baking, prepare the sauce.\n", "prep": "8 minutes", "servings": "8-10"}, {"comments": [["Tony", "This was bangin\u0027!"]], "dish": "Wave Cakes", "image": "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/81/pancakes_1f95e.png", "ingredients": {"All-purpose flour": "1 1/2 cups", "Baking powder": "3 1/2 teaspoons", "Egg": 1, "Melted butter": "3 Tablespoons", "Milk": "1 1/4 cups", "Salt": "1 Teaspoon", "White sugar": "1 Tablespoon"}, "instruction": "In a large bowl, sift together the flour, baking powder, salt and sugar. Make a well in the center and pour in the milk, egg and melted butter; mix until smooth.\n\nHeat a lightly oiled griddle or frying pan over medium high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake. Brown on both sides and serve hot.\n", "prep": "10 minutes", "servings": "3-4"}, {"comments": [["Anna", "THE BOMB!!"]], "dish": "Arcade Burger", "image": "http://icons.iconarchive.com/icons/pixelkit/tasty-bites/256/hamburger-icon.png", "ingredients": {"10 Tablespoons Salted Butter Softened": "10 Tablespoons", "90% Lean Ground Beef": "1 lb", "American Cheese": "4 Slices", "Freshly Ground Black Pepper": "3/4 Teaspoon", "Hamburger Buns (toasted)": 4, "Kosher Salt": "3/4 Teaspoon", "Medium Sweet Yellow Onion Chopped": 1, "Vegetable oil": "1 Teaspoon", "Water": "1 Tablespoon"}, "instruction": "In a large skillet, melt 2 tablespoons butter over medium heat. Add chopped onion, water and \u00bc teaspoon salt. Cover and cook, until tender, about 5 minutes. Reduce heat to medium-low and remove lid. Continue to cook until onions are translucent and just beginning to brown, about 3 more minutes. Transfer onions to a plate, and divide into 4 equal portions; set onions aside until ready to use.\n\nDivide beef into 4 equal sized portions and gently shape each into a 4\u00bdx\u00bd-inch patty. Sprinkle both sides of the patties with salt and pepper. Refrigerate the patties 15-30 minutes.\n\nSpread each bun top with 2 tablespoons butter; set aside.\n\nHeat oil in the same skillet used for the onions until the oil begins to smoke. Use a spatula to transfer the patties to the skillet and cook 3 minutes (without moving them). Flip the patties and cook 1 more minute. Place 1 cheese slice over each patty and continue to cook until cheese is melted, about 20-30 seconds more.\n\nTransfer patties to the bun bottoms and place \u00bc of the saut\u00e9ed onions on each patty. Top each with the buttered bun tops and serve immediately.\n    Enjoy!\n", "prep": "10 minutes", "servings": "3-4"}];
+  /* D3 because, easy money. */ 
+  var wrapper = d3.select('#recipes');
+  var row = wrapper.append('div');
+  var current_cell = 0; 
+  for (var i in recipes) {
+    row.append('div')
+       .attr('class', 'dish')
+       .append('a')
+       .attr('href', '/recipes/' + i)
+       .attr('class', 'glow-pink-txt')
+       .text(recipes[i].dish);
+    current_cell++;
+    if (current_cell % 2 == 0) {
+      row = wrapper.append('div');
+    }
+  }
+</script>
+
+    </div>
+  </div>
+  <script>
+    
+    window.onload = function () {
+      $('#content_inc').fadeIn(1000);
+    }
+  </script>
+</body>
+</html>
