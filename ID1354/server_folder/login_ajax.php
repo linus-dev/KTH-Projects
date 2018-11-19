@@ -7,12 +7,12 @@
     $PSW = $_REQUEST['password'];
   }
   
-  $dbconn = pg_connect("host=localhost dbname=ID1354 user=linus password=hej")
-    or die('Could not connect: ' . pg_last_error());
   if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     if ($USR != '' && $PSW != '') {
+      $dbconn = pg_connect("host=localhost dbname=ID1354 user=linus password=hej")
+        or die('Could not connect: ' . pg_last_error());
       $result = pg_query_params($dbconn,
-                                'SELECT * FROM users WHERE user = $1 and psw = $2',
+                                'SELECT * FROM users WHERE user=$1 and psw=$2',
                                 array($USR, $PSW)); 
       if (pg_num_rows($result)) {
         $_SESSION['username'] = $USR;

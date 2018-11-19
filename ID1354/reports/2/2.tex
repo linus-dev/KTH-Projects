@@ -15,44 +15,20 @@
 \headheight 27pt
 \pagestyle{fancyplain}
 \lhead{\footnotesize{Internet Applications, ID1354}}
-\chead{\footnotesize{Name of the Report}}
+\chead{\footnotesize{PHP, in this day and age?}}
 \rhead{}
 \lfoot{}
 \cfoot{\thepage\ (\pageref{LastPage})}
 \rfoot{}
 
 % Create title page
-\title{Name of the Report}
+\title{PHP, in this day and age?}
 \subtitle{Internet Applications, ID1354}
-\author{Your Name and Email Address}
-\date{Date}
-
+\author{Linus Berg Linus@Fenix.me.uk}
+\date{\today}
 \begin{document}
 
 \maketitle
-
-\section*{Tips for Report Writing}
-\textbf{REMOVE THIS SECTION BEFORE SUBMITTING THE REPORT.}\\
-
-\noindent \textit{The target audience has exactly the same skills as the author, except they do not know anything at all about the specific program described in the report.} \\
-
-Consider the following:
-
-\begin{itemize}
-  \item \textbf{The report must be \textit{centered around the requirements}. Which are they (Introduction), how did you work to meet them (Method), what is the solution that meets them (Result), and how can you be sure they are met (Discussion). This is the IMRaD method.}
-
-  \item \textbf{The report must show that you have done the work yourself and that you have understood what you have done. Both of these goals are met by carefully explaining the source code.}
-
-  \item Is spelling and grammar correct? Is spoken language avoided?
-
-  \item Does the report have a good structure with sections, subsections and paragraphs?
-
-  \item Is the solution clearly explained? Will the reader understand the program? What would you yourself want to know if you read about the program, is that included in the report?
-
-  \item Is the solution analyzed and evaluated? Are important properties of the program explained? Should there have been more extensive evaluation?
-
-  \item Is the text clarified with images and/or other figures, and with links to the code in your Git repository? Remember that all figures (images, tables, graphs, code listings, etc) shall be numbered and have a short explaining text.
-\end{itemize}
 
 \section{Introduction}
 
@@ -149,16 +125,180 @@ interface design.
     \label{fig:login_code}
   \end{center}
 \end{figure}
-The login form utilises AJAX and PHP to perform both the login and logout.
 
+\noindent
+For related files see,
+\href{https://github.com/linus-dev/KTH-Projects/blob/master/ID1354/2/login_ajax.php}{login\_ajax.php},\\
+\href{https://github.com/linus-dev/KTH-Projects/blob/master/ID1354/2/login.php}{login.php}
+\\
+\\
+The login form utilises JQuery, AJAX and PHP to perform both the login and logout,
+when the user clicks the login button the JQuery submit hook does an ajax request
+to the server for login\_ajax.php with the username and password provided (if this is a logout, they will be null).
+\\\\
+Upon recieving the request the server checks if the user is logged in or not and basing the next decision
+on that (logging in or out). In case the user logs in a database connection is opened and
+a simple \textit{SELECT} query is ran to check if there is any such user with that password in the database,
+if the database returned anything greater than zero (amount of rows) in the selection, that means a user was found,
+the appropriate \textit{SESSION} variables are set and the user is now logged in.
+The same as above applies for a logout, except no database connection is made, simply the 
+session variables are unset.
+The login.php is then included in every page where a login/logout form should be present, like this:
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=1]{images/login_include.png}
+    \caption{login.php include}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.32]{images/comments_logged_out.png}
+    \caption{Logged Out}
+    \label{fig:cmt_out}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.32]{images/comments_logged_in.png}
+    \caption{Logged In}
+    \label{fig:cmt_in}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=1]{images/comment_delete.png}
+    \caption{Logged In}
+    \label{fig:cmt_del}
+  \end{center}
+\end{figure}
+
+\noindent
+As seen in \ref{fig:cmt_out} and \ref{fig:cmt_in} the recipe part of the site displays
+different depending on if the user is logged in or not, the comment text box is not
+displayed for a guest visitor.
+\\\\
+In case the user wants to delete a comment posted he or she may easily do so by
+clicking the \textit{Delete} button that accompanies each comment as seen in \ref{fig:cmt_del}.
+\\\\
+\noindent
+The comment field is quite simple and intutive.
+\begin{itemize}
+\item{Visibility of system status}\\
+  The user can easily tell if he or she can comment, since it does not display
+  if they are not logged in and user will easily be able to tell once he or she
+  posts a comment, the page will reload and their comment appears in clear view
+  below the comment field.
+\item{Match between system and the real world}\\
+  'POST!' should be quite a univeral and well understood button, and the text box
+  could possibly be a bit more leading/guiding to let the user know where to type,
+  however the site feels inutitve enough.
+\item{Consistency and standards}\\
+  The comment field is the exact same on every recipe, and the user will know
+  how to comment if he or she is logged in.
+\item{Recognition rather than recall}\\
+  The user should quite easily recognize where to comment and what they commented
+  due to it instantly displaying.
+\item{Aesthetic and minimalist design}\\
+  The text field and button are both very simple, it fits the aesthetic of the rest of the site
+  and provides enough visual feedback to the user.
+\end{itemize}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.9]{images/cmt_code_post_ajax.png}
+    \caption{PostComment.php}
+    \label{fig:cmt_post_ajax}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.9]{images/cmt_code.png}
+    \caption{recipe.php}
+    \label{fig:cmt_recipe}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.9]{images/cmt_get.png}
+    \caption{GetComments.php}
+    \label{fig:cmt_get}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.9]{images/cmt_build.png}
+    \caption{recipe.php}
+    \label{fig:cmt_build}
+  \end{center}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.9]{images/cmt_delete.png}
+    \caption{delete.php}
+    \label{fig:cmt_delete}
+  \end{center}
+\end{figure}
+\noindent
+For related files see,\\
+\href{https://github.com/linus-dev/KTH-Projects/blob/master/ID1354/2/GetComments.php}{GetComments.php},\\
+\href{https://github.com/linus-dev/KTH-Projects/blob/master/ID1354/2/PostComment.php}{PostComment.php},\\
+\href{https://github.com/linus-dev/KTH-Projects/blob/master/ID1354/2/delete.php}{delete.php},\\
+\href{https://github.com/linus-dev/KTH-Projects/blob/master/ID1354/2/recipe.php}{recipe.php}
+\\\\
+\noindent
+The comment field also utilises JQuery, AJAX, and PHP, in a similar fashion to the login.php file.
+\\\\
+\noindent
+1. Posting a comment.\\
+  If the user choses to post a comment, the JQuery submit handle does an ajax request to
+  PostComment.php with the recipe ID, user ID, and the text the user posted, as seen in \ref{fig:cmt_recipe}.
+  The PostComment.php file does a simple database insert into the PostgreSQL db (\ref{fig:cmt_post_ajax}).
+\\\\
+2. Getting comments\\
+  Getting comments is slightly more interesting because it uses JSON headers and output to
+  provide the user with the comments that the server has stored, the client does an AJAX
+  request to the server (GetComments.php) with the recipe ID, the server then returns a JSON structure
+  with all comments available and builds the comment section with the D3.js library.
+\\\\
+3. Deleting comments\\
+  The user can request a comment to be deleted by pressing the delete button (\ref{fig:cmt_del}),
+  this triggers the the D3.js \textit{on click} event which is defined in \ref{fig:cmt_build}.
+  The event does an ajax request to delete.php and the server checks to make sure the user is allowed to delete
+  said comment and then runs a delete query on the database.
+\\\\
+Overall the design is very functional, many aspects could be improved and the code right now
+is very unstructured, however it works well.
 \section{Discussion}
 
-\textbf{This section \textit{analysis} the result presented in the previous section.} \\
-
-\noindent Summarize the requirements and \textit{clearly state which of them you have met}. What lessons have you learned and what problems did you face? How were the problems solved? Should you have done something differently?
-
-\section{Comments About the Course}
-
-Any comment(s) related to this course offering or to coming offerings is much appreciated. \textit{Please also tell approximately how much time you spent on the assignment}, including lectures and exercises. This is of great help for course evaluation.
+I do not have much to discuss this seminar, other than the obvious security flaws over 
+using a well designed system implemented by a dedciated software team, the passwords
+are not hashed nor salted, so there is an obvious flaw in storing it as plaintext,
+and the website does not utilise a secure connection (SSL). I am also fairly certain
+that even though I utilise bindings for the querys, the input should be sanitized more,
+there is a large posibility the website is vulnerable to SQL injections, XSS
+attacks should not be possible as the comments are escaped, however I only did
+basic testing as can be seen in \ref{fig:xss}.
+\\
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.6]{images/xss.png}
+    \caption{XSS}
+    \label{fig:xss}
+  \end{center}
+\end{figure}
+\noindent
+Inadvertedly it appears this solution is the way that seminar four requests us to
+implement the user requests, so that turned out great.
+\\\\
+I could have also solved the optional tasks as they are quite trivial, especially
+registration with a database, however procrastination once again was victorious.
 
 \end{document}

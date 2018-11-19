@@ -27,6 +27,7 @@ $('#auth_form').on('submit', function (e) {
     url : 'login_ajax.php',
     data: data,   
     success : function(d) {
+      alert(d);
       location.reload(); 
     },
     error : function(XMLHttpRequest, textStatus, errorThrown) {

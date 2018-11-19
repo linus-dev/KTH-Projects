@@ -1,0 +1,7 @@
+There was not much difference in the implementation between Jonathan and Alcander,
+Linus however used AJAX requests and Postgres compared to their 
+PHP post requests and MySQL databases, everyone had a different way to split
+up their code, however the SESSION implementations are quite similar.
+
+Everyone followed the requirements in the lab tasks, Jonathan and Alcander had both done the
+optional tasks, the reports were fine as well.
