@@ -93,7 +93,7 @@ Javascript was also extensively used to automatically generate HTML code, for ea
 \section{Result}
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[scale=0.3]{Scr2.jpg}
+    \includegraphics[scale=0.3]{images/Scr2.jpg}
     \caption{The inviting homepage!}
     \label{fig:homepage}
   \end{center}
@@ -101,7 +101,7 @@ Javascript was also extensively used to automatically generate HTML code, for ea
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[scale=0.3]{Scr3.jpg}
+    \includegraphics[scale=0.3]{images/Scr3.jpg}
     \caption{The pages displaying dishes available for the user to pick!}
     \label{fig:dishes}
   \end{center}
@@ -109,7 +109,7 @@ Javascript was also extensively used to automatically generate HTML code, for ea
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[scale=0.3]{Scr6.jpg}
+    \includegraphics[scale=0.3]{images/Scr6.jpg}
     \caption{The dish calendar!}
     \label{fig:calendar}
   \end{center}
@@ -117,21 +117,21 @@ Javascript was also extensively used to automatically generate HTML code, for ea
 
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[scale=0.25]{Scr5.jpg}
+    \includegraphics[scale=0.25]{images/Scr5.jpg}
     \caption{The recipe specification with comments!}
     \label{fig:recipe}
   \end{center}
 \end{figure}
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[scale=0.35]{Scr4.png}
+    \includegraphics[scale=0.35]{images/Scr4.png}
     \caption{Example of mobile scaling!}
     \label{fig:recipe}
   \end{center}
 \end{figure}
 \begin{figure}[H]
   \begin{center}
-    \includegraphics[scale=0.35]{Scr1.png}
+    \includegraphics[scale=0.35]{images/Scr1.png}
     \caption{Example of mobile scaling!}
     \label{fig:recipe}
   \end{center}
@@ -168,6 +168,67 @@ IE11 support is average at best, however it still displays, somewhat properly.
 The site performs well on mobile devices as well, scaling decently, however some
 pages could use some more work.
 Overall the result is pleasing and light-hearted.
+\subsection{Code}
+The code utilises HTML, CSS, Python, and Javascript, these combined makes less repetion of
+hardcoded values and templates such as the recipe page.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.8]{images/code_1.png}
+    \caption{Example Json structure!}
+    \label{fig:code_recp}
+  \end{center}
+\end{figure}
+\noindent
+Each recipe was structured as in \ref{fig:code_recp} to allow for easy addition
+of new recipes. These were simply hardcoded in python to allow for testing.
+\\\\
+\noindent
+The website uses Python with the Flask framework, this means easy templating
+and routing for the programmer.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.8]{images/code_2.png}
+    \caption{Example routing structure!}
+    \label{fig:code_route}
+  \end{center}
+\end{figure}
+\noindent
+The framework also allows us to pass data between the site and python, as shown in
+\ref{fig:code_route} with \textit{recipes\_data}.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.8]{images/code_3.png}
+    \caption{Example template!}
+    \label{fig:code_temp}
+  \end{center}
+\end{figure}
+\noindent
+The templating engine Jinja allows us to access the data provided in \ref{fig:code_route}
+easily by simple commands, example: \textit{'\{\{ recipes\_data \}\}'}. The templating engine
+also allows us to create a 'standard' template for each page, and only change
+the content block on each, this makes development a lot quicker and easier, especially
+to give a uniform look to the website as shown in \ref{fig:code_temp}.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.8]{images/code_5.png}
+    \caption{Example javascript!}
+    \label{fig:code_js}
+  \end{center}
+\end{figure}
+\noindent
+Javascript was used extensively to generate the website, as shown in \ref{fig:code_js},
+the figure shows the generation of the calendar using javascript.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=0.8]{images/code_6.png}
+    \caption{Example css!}
+    \label{fig:code_css}
+  \end{center}
+\end{figure}
+\noindent
+CSS was also utilised extensively as shown above, several custom fonts were defined
+via the \textit{@font-face} command. Several CSS3 animations were also used to give
+the website a more alive look.
 \newpage
 \section{Discussion}
 \noindent
