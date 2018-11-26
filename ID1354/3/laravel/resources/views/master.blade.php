@@ -21,28 +21,31 @@
     </ul>
     <div id="login_bar">
       <div id="login_form">
+@if (!Auth::check())
         <form method="POST" action="{{ route('login') }}">
           @csrf
           <input id="email" type="email" class="text form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
           @if ($errors->has('email'))
-              <span class="invalid-feedback" role="alert">
-                  <strong>{{ $errors->first('email') }}</strong>
-              </span>
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $errors->first('email') }}</strong>
+            </span>
           @endif
           <input id="password" type="password" class="text form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
           @if ($errors->has('password'))
-              <span class="invalid-feedback" role="alert">
-                  <strong>{{ $errors->first('password') }}</strong>
-              </span>
+            <span class="invalid-feedback" role="alert">
+              <strong>{{ $errors->first('password') }}</strong>
+            </span>
           @endif
-              <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-              <label class="form-check-label" for="remember">
-                  {{ __('Remember Me') }}
-              </label>
           <button type="submit" class="btn btn-primary">
-              {{ __('Login') }}
+            {{ __('Login') }}
           </button>
         </form>
+@else
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <input class="btn" type="submit" value="Logout" name="logout">
+      </form>
+@endif
       </div>
     </div>
     <div id="content_inc">

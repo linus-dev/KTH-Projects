@@ -27,6 +27,8 @@ Route::get('/cal', function () {
   return view('cal');
 })->name('cal');
 
-Auth::routes();
+Route::delete('/comment/delete', "Comments@Delete")->middleware('auth');
+Route::post('/comment/post', "Comments@Post")->middleware('auth');
+Route::get('/comment/get_all', "Comments@GetAll");
 
-//Route::get('/home', 'HomeController@index')->name('home');
+Auth::routes();
