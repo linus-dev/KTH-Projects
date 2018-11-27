@@ -1,0 +1,88 @@
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{lastpage}
+\usepackage{pgf}
+\usepackage{wrapfig}
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{hyperref}
+\pagestyle{fancy}
+
+% Create header and footer
+\headheight 27pt
+\pagestyle{fancyplain}
+\lhead{\footnotesize{Internet Applications, ID1354}}
+\chead{\footnotesize{Name of the Report}}
+\rhead{}
+\lfoot{}
+\cfoot{\thepage\ (\pageref{LastPage})}
+\rfoot{}
+
+% Create title page
+\title{}
+\subtitle{Internet Applications, ID1354}
+\author{Linus Berg Linus@Fenix.me.uk}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+The seminar consisted of learning JavaScript, jQuery, and implement Ajax request
+into the recipes website.
+\section{Literature Study}
+I was already familiar with jQuery and Ajax requests, all previous seminars
+already utilised jQuery and Ajax.
+
+\section{Method}
+As stated above, all previous seminars utilised Ajax and jQuery, therefor no
+changes were made for this seminar. However my initial thought during development
+was that Ajax is a more modern method for updating a webpage rather than conducting
+POST/GET requests by redirection, and I chose to implment it as I found it easier.
+\\\\
+\noindent
+In the previous seminars, a simple .php file with a script was developed,
+as can be seen in \href{https://github.com/linus-dev/KTH-Projects/tree/master/ID1354/2}{seminar 2},
+then each one was easily requested via Ajax and a response was easily managed.
+This separated the PHP from HTML further, and made the program easier to manage.
+\\\\
+\noindent
+During \href{https://github.com/linus-dev/KTH-Projects/tree/master/ID1354/3}{seminar 3}, when
+a MVC framework had to be implemented, the files were switched to the Laravel routing, and utilised
+the controllers instead to manage each Ajax request.
+
+\begin{center}
+    \begin{tabular}{  l | r }
+    Tool & Choice \\ 
+    \hline
+    Editor & \textit{Vim}\\
+    Version Control & \textit{Git - Github}\\
+    Web Server & \textit{nginx}\\
+    Database & \textit{PostgreSQL 10.5-1}\\
+    PHP & \textit{7.2.10-1} \\
+    Framework & \textit{Laravel 5.7}\\
+    \end{tabular}
+\end{center}
+
+\section{Result}
+
+\textbf{This section explains \textit{the result} of what you did.} \\
+
+\noindent Present the solution. Explain your code and prove that it meets the requirements. It is very important to \textit{state each requirement that is met} and explain \textit{how you met it}. It is also important to include links to your code in your Git repository, user interface screen-shots, see Figure \ref{fig:ui}, and other figures to illustrate your reasoning. Also remember that these figures must be referenced in the text.
+
+\section{Discussion}
+
+\textbf{This section \textit{analysis} the result presented in the previous section.} \\
+
+\noindent Summarize the requirements and \textit{clearly state which of them you have met}. What lessons have you learned and what problems did you face? How were the problems solved? Should you have done something differently?
+
+\section{Comments About the Course}
+
+Any comment(s) related to this course offering or to coming offerings is much appreciated. \textit{Please also tell approximately how much time you spent on the assignment}, including lectures and exercises. This is of great help for course evaluation.
+
+\end{document}
