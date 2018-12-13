@@ -22,7 +22,7 @@
 \rfoot{}
 
 % Create title page
-\title{}
+\title{jQuery \& Ajax applications}
 \subtitle{Internet Applications, ID1354}
 \author{Linus Berg Linus@Fenix.me.uk}
 \date{\today}
@@ -70,19 +70,69 @@ the controllers instead to manage each Ajax request.
 \end{center}
 
 \section{Result}
+\href{https://github.com/linus-dev/KTH-Projects/tree/master/ID1354/4/laravel}{Github}
+\\
+As the javascript code was included since the first seminar the code has gone through
+several structural changes in iterations, however, login has remained similar throughout
+the program, with the addition of the CSRF token as can be seen in \ref{fig:auth}.
+The login buttons have bound submit events via jQuery to submit an ajax request to the server
+upon clicking one of the buttons, upon completion it reloads the site (this is obviously not
+the way ajax was intended to be used, however the seminar did not mention you had to make
+it rewrite the current page), this is because if the user was sucessfully logged in, the
+page will reload and the laravel Auth model will display the logged in user instead.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=1.0]{images/login_out.png}
+    \caption{Login and out.}
+    \label{fig:auth}
+  \end{center}
+\end{figure}
 
-\textbf{This section explains \textit{the result} of what you did.} \\
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=1.0]{images/post_cmt.png}
+    \caption{Post comment.}
+    \label{fig:post}
+  \end{center}
+\end{figure}
+\noindent
+Upon posting a comment the same as in the login buttons occur, a submit event is bound via jQuery
+and upon triggering it submits an ajax request to the server with the relevant data to store the comment
+in the database, again upon completion it reloads the current page.
 
-\noindent Present the solution. Explain your code and prove that it meets the requirements. It is very important to \textit{state each requirement that is met} and explain \textit{how you met it}. It is also important to include links to your code in your Git repository, user interface screen-shots, see Figure \ref{fig:ui}, and other figures to illustrate your reasoning. Also remember that these figures must be referenced in the text.
-
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=1.0]{images/build_cmt.png}
+    \caption{Build comment section.}
+    \label{fig:build}
+  \end{center}
+\end{figure}
+\noindent
+When the recipe page is loaded the scripts in \ref{fig:build} are executed,
+creating a GET request to the server to recieve all comments for the relevant recipe,
+in a json structure, no HTML data is sent,
+this section could easily be modified to separate the printComments function so
+the post comment code (\ref{fig:post}) does not need to reload the page.
+\begin{figure}[H]
+  \begin{center}
+    \includegraphics[scale=1.0]{images/build_recipe.png}
+    \caption{Build recipe.}
+    \label{fig:build_rec}
+  \end{center}
+\end{figure}
+\noindent
+Last but not least is the javascript to build the recipe description, prep time, and all the relevant information.
+\ref{fig:build_rec} utilises the built in getJSON in jQuery, resulting in not needing to
+set headers and manage data at a more rudimentary level.
 \section{Discussion}
 
-\textbf{This section \textit{analysis} the result presented in the previous section.} \\
-
-\noindent Summarize the requirements and \textit{clearly state which of them you have met}. What lessons have you learned and what problems did you face? How were the problems solved? Should you have done something differently?
-
-\section{Comments About the Course}
-
-Any comment(s) related to this course offering or to coming offerings is much appreciated. \textit{Please also tell approximately how much time you spent on the assignment}, including lectures and exercises. This is of great help for course evaluation.
-
+All the mandatory tasks have been met, ajax is used for almost every functionality on the site,
+however not efficently as it still reloads the pages, this was more out of stress (I have to retake an exam Monday the 17th)
+and I chose to not dwell too deep into the seminar to focus more on the exam.
+\\\\
+The javascript code could have been more structured as well, such as put into it's
+own file and actually used classes, however it felt uneccessary for such
+a simple task. Again javascript/jquery/ajax has been used since the first seminar, and some details were hard to recall
+and I can not actually recall if any issues were encountered, however, I do not think there were any major problems.
+In general it was hard to recall many details which is why the report is so sparse.
 \end{document}
