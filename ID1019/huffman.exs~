@@ -1,0 +1,56 @@
+defmodule Hefner do
+  def test(str) do
+    encode(huffman(freq(str)));
+  end
+  
+  def freq(l) do
+    freq(l, []);
+  end
+  def freq([], freq) do
+    freq;
+  end
+  
+  def freq([char | rest], freq) do
+    freq(rest, update(char, freq));
+  end
+
+  def update(char, []) do
+    [{char, 1}];
+  end
+  
+  def update(char, [{char, n} | tail]) do
+    [{char, n + 1} | tail];
+  end
+  
+  def update(char, [elem | tail]) do
+    [elem | update(char, tail)];
+  end
+  def huffman(freq) do
+    sorted = Enum.sort(freq, fn({_, x}, {_, y}) -> x < y end);
+    huffman_tree(sorted);
+  end
+
+  def huffman_tree([{tree, _}]), do: tree
+  def huffman_tree([{a, af}, {b, bf} | rest]) do
+    huffman_tree(insert({{a, b}, af + bf}, rest));
+  end
+
+  def insert({a, af}, []) do
+    [{a, af}];
+  end
+
+  # Call recursively until af is smaller than the next element.
+  def insert({a, af}, l = [{_, bf} | _]) when af < bf do
+    [{a, af} | l];
+  end
+
+  # Keep moving a forward until above pattern matches.
+  def insert({a, af}, [{b, bf} | tail]) do
+    [{b, bf} | insert({a, af}, tail)]
+  end
+  def encode(tree) do encode(tree, []) end
+  def encode({}, path) do path end
+  def encode({a, b}, path) do
+  end
+  
+end

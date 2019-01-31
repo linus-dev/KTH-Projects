@@ -1,0 +1,103 @@
+1.
+2. Stock: IIS, UN: Not disclosing (Running unix), Google: gws, Time: Nginx(Ubuntu)
+3.
+
+HEAD /index.html HTTP/1.1
+Host: ik1203.private.lab
+
+HTTP/1.1 200 OK
+Date: Mon, 28 Jan 2019 12:28:17 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Last-Modified: Mon, 26 Jan 2015 13:44:06 GMT
+ETag: "79-50d8e5500f280"
+Accept-Ranges: bytes
+Content-Length: 121
+Vary: Accept-Encoding
+Content-Type: text/html
+
+4.
+220 mail.private.lab ESMTP Postfix (Ubuntu)
+HELO mail.private.lab
+250 mail.private.lab
+MAIL FROM:<MajorTom@private.lab>   
+250 2.1.0 Ok
+RCPT TO:<user1@private.lab>
+250 2.1.5 Ok
+DATA
+354 End data with <CR><LF>.<CR><LF>
+EN RENJÄVEL! TITTA LENNART!
+.
+250 2.0.0 Ok: queued as 04A7F7EAC9
+quit
+221 2.0.0 Bye
+
+7.
++OK Hello there.
+user user1
++OK Password required.
+pass user1
++OK logged in.
+list
++OK POP3 clients that break here, they violate STD53.
+1 403
+2 335
+3 305
+4 301
+5 325
+6 397
+7 312
+8 338
+9 330
+10 354
+11 315
+12 322
+13 287
+14 320
+15 338
+16 331
+17 322
+18 301
+19 340
+20 337
+21 320
+22 338
+23 321
+24 324
+25 356
+26 343
+27 314
+28 298
+29 300
+30 319
+31 358
+32 345
+33 338
+34 354
+35 422
+36 305
+37 366
+38 338
+39 333
+40 300
+41 321
+42 407
+43 316
+44 312
+45 356
+46 342
+47 331
+48 328
+.
+retr 48
++OK 328 octets follow.
+Return-Path: <MajorTom@private.lab>
+X-Original-To: user1@private.lab
+Delivered-To: user1@private.lab
+Received: from mail.private.lab (dhcp-130.ik2213.lab [192.168.3.130])
+	by mail.private.lab (Postfix) with SMTP id 04A7F7EAC9
+	for <user1@private.lab>; Mon, 28 Jan 2019 13:31:36 +0100 (CET)
+
+EN RENJÄVEL! TITTA LENNART!
+.
+quit
++OK Bye-bye.

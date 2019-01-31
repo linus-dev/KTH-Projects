@@ -1,0 +1,11 @@
+The main differences between the three solutions were frameworks and the way AJAX was used,
+I used Laravel, Pebo used no framework, and as did Jakob, and no-one used a javascript framework,
+because I used Laravel a lot of the authentication functionality was handled automatically by Laravel.
+
+Everyone used jQuery for the ajax requests, no-one used raw javascript, however
+I used the 'raw' ajax function, Pebo used post/get functions, and Jakob used get json.
+
+Everyone also meets all the requirements, no-one did any of the optional tasks though,
+other than that most of the core functionality between ajax and the server is the same for all three solutions.
+
+The majority of the solutions were very similar except for the php frameworks.
