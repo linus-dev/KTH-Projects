@@ -44,11 +44,14 @@ public class TCPClient {
     /* Server output. */
     StringBuilder output = new StringBuilder();
     InputStream input_stream = socket.getInputStream();
-    while (msg_size != -1) {
+    int buffer_reads = 0;
+
+    while (msg_size != -1 && buffer_reads < 10) {
       try {
         /* Read, if server refuses to close catch timeout exception. */
         msg_size = input_stream.read(buffer_input);
         output.append(new String(buffer_input, 0, msg_size)); 
+        buffer_reads++;
       } catch (Exception e) {
         /* Timed out, end read loop. */
         msg_size = -1;
