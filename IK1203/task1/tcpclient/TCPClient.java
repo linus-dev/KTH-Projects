@@ -42,8 +42,18 @@ public class TCPClient {
     }
 
     /* Server output. */
-    msg_size = socket.getInputStream().read(buffer_input);
-
-    return new String(buffer_input, 0, msg_size);
+    StringBuilder output = new StringBuilder();
+    InputStream input_stream = socket.getInputStream();
+    while (msg_size != -1) {
+      try {
+        /* Read, if server refuses to close catch timeout exception. */
+        msg_size = input_stream.read(buffer_input);
+        output.append(new String(buffer_input, 0, msg_size)); 
+      } catch (Exception e) {
+        /* Timed out, end read loop. */
+        msg_size = -1;
+      }
+    }
+    return output.toString();
   }
 }
