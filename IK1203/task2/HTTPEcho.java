@@ -3,6 +3,9 @@ import java.io.*;
 
 public class HTTPEcho {
   public static void main( String[] args) throws IOException {
+    if (args.length < 1) {
+      throw new IOException("ERROR: NO PORT PROVIDED");
+    }
     ServerSocket srv = new ServerSocket(Integer.parseInt(args[0]));
     System.out.println("Accepting TCP connections on port: " + args[0]);
     Socket s = srv.accept();
