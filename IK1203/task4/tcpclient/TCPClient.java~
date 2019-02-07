@@ -1,0 +1,72 @@
+package tcpclient;
+import java.net.*;
+import java.io.*;
+
+public class TCPClient {
+  private static Socket CreateSocket(String hostname, int port) {
+    /* New socket. */
+    Socket socket = new Socket();
+    /* Server address by name. */
+    try {
+      InetAddress srv_address = InetAddress.getByName(hostname);
+      /* SocketAddress. */
+      SocketAddress socket_address = new InetSocketAddress(srv_address, port);
+      socket.connect(socket_address);
+    } catch (Exception ex) {
+      System.err.println("Error: unknown host.");
+      return null;
+    }
+    return socket;
+  }
+  public static String askServer(String hostname, int port, String input) throws IOException {
+    Socket client_socket = CreateSocket(hostname, port);
+    if (client_socket != null && client_socket.isConnected()) {
+        if (input == null) {
+        ServerRequest(
+        } else {
+        }
+    }
+  }
+  private static String ServerRequest(Socket socket, input) throws IOException {
+    /* Ensure client is connected. */
+    if (){
+      if (input == null) {
+        askServer(client_socket);
+      } else {
+        /* Message length */
+        int msg_size = 0;
+        byte[] buffer_input = new byte[client_socket.getReceiveBufferSize()];
+        byte[] buffer_output = new byte[client_socket.getSendBufferSize()];
+
+        /* Client input. */
+        msg_size = input.length();
+        buffer_output = input.getBytes();
+        client_socket.getOutputStream().write(buffer_output, 0, msg_size);
+        client_socket.getOutputStream().write('\n');
+        /* * */
+
+        /* Server output. */
+        msg_size = client_socket.getInputStream().read(buffer_input);
+        System.out.write(buffer_input, 0, msg_size);
+        /* * */
+      }
+    }
+    client_socket.close();
+    return "";
+  }
+
+  private static String ServerRequest(Socket socket) throws IOException {
+    /* Ensure client is connected. */
+    if (client_socket != null && client_socket.isConnected()){
+      /* Message length */
+      int msg_size = 0;
+      byte[] buffer_input = new byte[client_socket.getReceiveBufferSize()];
+
+      /* Server output. */
+      msg_size = client_socket.getInputStream().read(buffer_input);
+      System.out.write(buffer_input, 0, msg_size);
+      /* * */
+    }
+    return ""; 
+  }
+}
