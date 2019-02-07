@@ -6,11 +6,7 @@ import tcpclient.TCPClient;
 
 public class ConcHTTPAsk {
   public static void main( String[] args) throws IOException {
-    if (args.length < 1) {
-      throw new IOException("ERROR: NO PORT PROVIDED");
-    }
-    ServerSocket srv = new ServerSocket(Integer.parseInt(args[0]));
-    System.out.println("Accepting TCP connections on port: " + args[0]);
+    ServerSocket srv = new ServerSocket(args.length < 1 ? 8888 : Integer.parseInt(args[0]));
     Socket s = srv.accept();
     /* Loop and accept sockets! */
     while (true) {
