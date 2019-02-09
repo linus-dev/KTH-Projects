@@ -1,0 +1,17 @@
+defmodule Complex do
+  def new(r, i) do
+    {:complex, r, i}
+  end
+  # ADD THEM!
+  def add({:complex, r1, i1}, {:complex, r2, i2}) do
+    {:complex, r1 + r2, i1 + i2}
+  end
+  # Square complex number.
+  def sqr({:complex, r, i}) do
+    {:complex, r*r - y*y, 2*r*i}
+  end
+  # Absolute value of complex number.
+  def abs({:complex, r, i}) do
+    :math.sqrt(r*r + y*y)
+  end 
+end

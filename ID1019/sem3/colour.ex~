@@ -1,0 +1,4 @@
+defmodule Colour do
+  def convert(depth, max) do
+  end
+end
