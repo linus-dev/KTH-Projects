@@ -29,17 +29,31 @@ class ConnectionHandle implements Runnable {
       /* WELL I GUESS WE JUST CRASH AND BURN. */
     }
   }
-
+  
+  private static StringBuilder BuildResponse(StringBuilder input) {
+    StringBuilder output = new StringBuilder();
+    
+    output.append("HTTP/1.1 200 OK\r\n");
+    output.append("Content-Length: " + input.length());
+    output.append("\r\n");
+    output.append("Server: Matterhorn\r\n");
+    output.append("Content-Type: text/plain\r\n");
+    output.append("Connection: Closed\r\n");
+    output.append("\r\n");
+    output.append(input.toString());
+    return output;
+  }
+  
   private void Echo() throws IOException {
     /* Input buffer for the socket. */
     byte[] buffer_input = new byte[this.socket.getReceiveBufferSize()];
     int msg_size = 0;
 
-    System.out.println("Request made by: " + this.socket.getInetAddress());
     /* Client input. */
     StringBuilder input_string = new StringBuilder();
     InputStream input_stream = this.socket.getInputStream();
     int buffer_reads = 0;
+        
     while (msg_size != -1 && buffer_reads < 10) {
       try {
         /* Read, if server refuses to close catch timeout exception. */
@@ -51,8 +65,9 @@ class ConnectionHandle implements Runnable {
         msg_size = -1;
       }
     }
-
-    this.socket.getOutputStream().write(input_string.toString().getBytes(), 0, input_string.length());
+    
+    StringBuilder output = BuildResponse(input_string);
+    this.socket.getOutputStream().write(output.toString().getBytes(), 0, output.length());
     this.socket.getOutputStream().write('\n');
     this.socket.close();
   }

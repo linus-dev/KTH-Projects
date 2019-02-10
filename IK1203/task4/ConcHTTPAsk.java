@@ -1,6 +1,7 @@
 import java.net.*;
 import java.io.*;
 import java.util.Map;
+import java.util.Formatter;
 import java.util.HashMap;
 import tcpclient.TCPClient;
 
@@ -27,7 +28,7 @@ class ConnectionHandle implements Runnable {
 
   public void run() {
     try {
-      this.response();
+      this.Response();
     } catch (Exception e) {
       /* WELL I GUESS WE JUST CRASH AND BURN. */
       try {
@@ -70,8 +71,22 @@ class ConnectionHandle implements Runnable {
     }
     return result;
   }
-
-  private void response() throws IOException {
+  
+  private static StringBuilder BuildResponse(int status_code, StringBuilder input) {
+    StringBuilder output = new StringBuilder();
+    Formatter fmt = new Formatter(output);
+    
+    fmt.format("HTTP/1.1 %d %s\r\n", status_code, (status_code == 200 ? "OK" : "ERROR"));
+    fmt.format("Content-Length: %d\r\n", input.length());
+    output.append("Server: Matterhorn\r\n");
+    output.append("Content-Type: text/plain\r\n");
+    output.append("Connection: Closed\r\n");
+    output.append("\r\n");
+    output.append(input.toString());
+    return output;
+  }
+  
+  private void Response() throws IOException {
     /* Input buffer for the socket. */
     byte[] buffer_input = new byte[this.socket.getReceiveBufferSize()];
     int msg_size = 0;
@@ -92,10 +107,12 @@ class ConnectionHandle implements Runnable {
       }
     }
 
+    
     /* Start building the response. */
     StringBuilder response = new StringBuilder(); 
     Map<String, String> queries = this.ParseQuery(input_string);
-
+    int status_code = 200;
+    
     if (queries.get("host") != null && queries.get("port") != null) {
       try {
         response.append(TCPClient.AskServer(queries.get("host"),
@@ -103,11 +120,14 @@ class ConnectionHandle implements Runnable {
                                             queries.get("string")));
       } catch (Exception ask_error) {
         response.append("400 BAD REQUEST");
+        status_code = 400;
       }
     } else {
       response.append("400 BAD REQUEST");
+      status_code = 400;
     }
-
+    
+    response = BuildResponse(status_code, response);
     this.socket.getOutputStream().write(response.toString().getBytes(), 0, response.length());
     this.socket.getOutputStream().write('\n');
     this.socket.close();
