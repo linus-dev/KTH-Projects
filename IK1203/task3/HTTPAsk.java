@@ -18,6 +18,39 @@ public class HTTPAsk {
   }
 }
 
+class Response {
+  private int status;
+  private String server = "Matterhorn";
+  private StringBuilder body = new StringBuilder();
+  
+  public Response (int initial_status) {
+    this.status = initial_status;
+  }
+  
+  public String GetResponse() {
+    StringBuilder output = new StringBuilder();
+    Formatter fmt = new Formatter(output);
+    
+    fmt.format("HTTP/1.1 %d %s\r\n", this.status, (this.status == 200 ? "OK" : "ERROR"));
+    fmt.format("Content-Length: %d\r\n", this.body.length());
+    fmt.format("Server: %s\r\n", this.server);
+    output.append("Content-Type: text/plain\r\n");
+    output.append("Connection: Closed\r\n");
+    output.append("\r\n");
+    output.append(this.body.toString());
+    
+    return output.toString();
+  }
+  
+  public void SetStatus(int status_code) {
+    this.status = status_code;
+  }
+  
+  public void AppendToBody(String data) {
+    this.body.append(data);
+  }
+}
+
 class ConnectionHandle implements Runnable {
   private Socket socket = null;
 
@@ -72,20 +105,6 @@ class ConnectionHandle implements Runnable {
     return result;
   }
   
-  private static StringBuilder BuildResponse(int status_code, StringBuilder input) {
-    StringBuilder output = new StringBuilder();
-    Formatter fmt = new Formatter(output);
-    
-    fmt.format("HTTP/1.1 %d %s\r\n", status_code, (status_code == 200 ? "OK" : "ERROR"));
-    fmt.format("Content-Length: %d\r\n", input.length());
-    output.append("Server: Matterhorn\r\n");
-    output.append("Content-Type: text/plain\r\n");
-    output.append("Connection: Closed\r\n");
-    output.append("\r\n");
-    output.append(input.toString());
-    return output;
-  }
-  
   private void Response() throws IOException {
     /* Input buffer for the socket. */
     byte[] buffer_input = new byte[this.socket.getReceiveBufferSize()];
@@ -107,28 +126,26 @@ class ConnectionHandle implements Runnable {
       }
     }
 
-    
     /* Start building the response. */
-    StringBuilder response = new StringBuilder(); 
+    Response response = new Response(200);
     Map<String, String> queries = this.ParseQuery(input_string);
-    int status_code = 200;
     
     if (queries.get("host") != null && queries.get("port") != null) {
       try {
-        response.append(TCPClient.AskServer(queries.get("host"),
+        response.AppendToBody(TCPClient.AskServer(queries.get("host"),
                                             Integer.parseInt(queries.get("port")),
                                             queries.get("string")));
       } catch (Exception ask_error) {
-        response.append("400 BAD REQUEST");
-        status_code = 400;
+        response.AppendToBody("400 BAD REQUEST");
+        response.SetStatus(400);
       }
     } else {
-      response.append("400 BAD REQUEST");
-      status_code = 400;
+      response.AppendToBody("400 BAD REQUEST");
+      response.SetStatus(400);
     }
     
-    response = BuildResponse(status_code, response);
-    this.socket.getOutputStream().write(response.toString().getBytes(), 0, response.length());
+    String output = response.GetResponse();
+    this.socket.getOutputStream().write(output.getBytes(), 0, output.length());
     this.socket.getOutputStream().write('\n');
     this.socket.close();
   }
