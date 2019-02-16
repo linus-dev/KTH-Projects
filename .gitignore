@@ -33,6 +33,7 @@
 
 *.swp
 *.class
+*.*~
 
 venv/*
 venv

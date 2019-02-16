@@ -1,6 +1,7 @@
 import java.net.*;
 import java.io.*;
 import java.util.Map;
+import java.util.Formatter;
 import java.util.HashMap;
 import tcpclient.TCPClient;
 
@@ -17,6 +18,39 @@ public class HTTPAsk {
   }
 }
 
+class Response {
+  private int status;
+  private String server = "Matterhorn";
+  private StringBuilder body = new StringBuilder();
+  
+  public Response (int initial_status) {
+    this.status = initial_status;
+  }
+  
+  public String GetResponse() {
+    StringBuilder output = new StringBuilder();
+    Formatter fmt = new Formatter(output);
+    
+    fmt.format("HTTP/1.1 %d %s\r\n", this.status, (this.status == 200 ? "OK" : "ERROR"));
+    fmt.format("Content-Length: %d\r\n", this.body.length());
+    fmt.format("Server: %s\r\n", this.server);
+    output.append("Content-Type: text/plain\r\n");
+    output.append("Connection: Closed\r\n");
+    output.append("\r\n");
+    output.append(this.body.toString());
+    
+    return output.toString();
+  }
+  
+  public void SetStatus(int status_code) {
+    this.status = status_code;
+  }
+  
+  public void AppendToBody(String data) {
+    this.body.append(data);
+  }
+}
+
 class ConnectionHandle implements Runnable {
   private Socket socket = null;
 
@@ -27,7 +61,7 @@ class ConnectionHandle implements Runnable {
 
   public void run() {
     try {
-      this.response();
+      this.Response();
     } catch (Exception e) {
       /* WELL I GUESS WE JUST CRASH AND BURN. */
       try {
@@ -70,8 +104,8 @@ class ConnectionHandle implements Runnable {
     }
     return result;
   }
-
-  private void response() throws IOException {
+  
+  private void Response() throws IOException {
     /* Input buffer for the socket. */
     byte[] buffer_input = new byte[this.socket.getReceiveBufferSize()];
     int msg_size = 0;
@@ -93,22 +127,25 @@ class ConnectionHandle implements Runnable {
     }
 
     /* Start building the response. */
-    StringBuilder response = new StringBuilder(); 
+    Response response = new Response(200);
     Map<String, String> queries = this.ParseQuery(input_string);
-
+    
     if (queries.get("host") != null && queries.get("port") != null) {
       try {
-        response.append(TCPClient.AskServer(queries.get("host"),
+        response.AppendToBody(TCPClient.AskServer(queries.get("host"),
                                             Integer.parseInt(queries.get("port")),
                                             queries.get("string")));
       } catch (Exception ask_error) {
-        response.append("400 BAD REQUEST");
+        response.AppendToBody("400 BAD REQUEST");
+        response.SetStatus(400);
       }
     } else {
-      response.append("400 BAD REQUEST");
+      response.AppendToBody("400 BAD REQUEST");
+      response.SetStatus(400);
     }
-
-    this.socket.getOutputStream().write(response.toString().getBytes(), 0, response.length());
+    
+    String output = response.GetResponse();
+    this.socket.getOutputStream().write(output.getBytes(), 0, output.length());
     this.socket.getOutputStream().write('\n');
     this.socket.close();
   }
