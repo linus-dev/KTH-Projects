@@ -130,9 +130,9 @@ class ConnectionHandle implements Runnable {
     Response response = new Response(200);
     Map<String, String> queries = this.ParseQuery(input_string);
     
-    if (queries.get("host") != null && queries.get("port") != null) {
+    if (queries.get("hostname") != null && queries.get("port") != null) {
       try {
-        response.AppendToBody(TCPClient.AskServer(queries.get("host"),
+        response.AppendToBody(TCPClient.AskServer(queries.get("hostname"),
                                             Integer.parseInt(queries.get("port")),
                                             queries.get("string")));
       } catch (Exception ask_error) {

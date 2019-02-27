@@ -73,8 +73,10 @@ class ConnectionHandle implements Runnable {
 
   private static Map<String, String> ParseQuery(StringBuilder request) {
     String[] req = request.toString().split("\n");
-    String host_string = req[1].split(" ")[1];
     String query_string = req[0].split(" ")[1];
+    String host_string = req[1].split(" ")[1];
+    System.out.println(host_string);
+    System.out.println(query_string);
     host_string = host_string.replaceAll("\\r", "");
     host_string = host_string.replaceAll("\\n", "");
 
@@ -125,14 +127,13 @@ class ConnectionHandle implements Runnable {
         msg_size = -1;
       }
     }
-
     /* Start building the response. */
     Response response = new Response(200);
     Map<String, String> queries = this.ParseQuery(input_string);
     
-    if (queries.get("host") != null && queries.get("port") != null) {
+    if (queries.get("hostname") != null && queries.get("port") != null) {
       try {
-        response.AppendToBody(TCPClient.AskServer(queries.get("host"),
+        response.AppendToBody(TCPClient.AskServer(queries.get("hostname"),
                                             Integer.parseInt(queries.get("port")),
                                             queries.get("string")));
       } catch (Exception ask_error) {
