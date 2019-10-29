@@ -10,7 +10,7 @@ public class Connection implements Runnable {
 
   public Connection(Socket connection) throws IOException {
     this.socket = connection; 
-    this.socket.setSoTimeout(500);
+    //this.socket.setSoTimeout(500);
   }
   
   public void run() {
@@ -37,26 +37,32 @@ public class Connection implements Runnable {
     /* Input buffer for the socket. */
     byte[] buffer_input = new byte[this.socket.getReceiveBufferSize()];
     int msg_size = 0;
-    InputStream input_stream = this.socket.getInputStream();
+    DataInputStream input = new DataInputStream(this.socket.getInputStream());
     DataOutputStream output = new DataOutputStream(this.socket.getOutputStream());
     
     /* Client input. */
-    while (true) {
+    while (!socket.isClosed() && socket.isConnected()) {
       StringBuilder input_string = new StringBuilder();
 
-      while (input_stream.available() > 0) {
-        msg_size = input_stream.read(buffer_input);
-        input_string.append(new String(buffer_input, 0, msg_size));
-      }
+      //while (input_stream.available() > 0) {
+       // msg_size = input_stream.read(buffer_input);
+       // input_string.append(new String(buffer_input, 0, msg_size));
+      //}
+      
+      input_string.append(input.readUTF()); 
       
       if ((input_string.toString().split(" ")).length == 2) {
         String[] player_cmd = this.ParseCMD(input_string);
         String cmd = player_cmd[0];
         String arg = player_cmd[1];
-        
+        System.out.println("Client guessing: " + player_cmd[1]);
+        System.out.println(cmd.toCharArray().length); 
+        System.out.println(cmd.equals("guess"));
         if (cmd.equals("guess")) {
           /* Result of command. */
+          System.out.println("Client guessing: " + arg);
           int result = this.session_.Guess(arg);
+          System.out.println("Client guessing: " + arg);
           switch (result) {
             case -1: {
               /* Player lost, output full word and request new one. */
@@ -88,6 +94,8 @@ public class Connection implements Runnable {
         }
       }
     }
+    this.socket.close();
+    System.out.println("Socket closed!");
     //this.socket.getOutputStream().write('\n');
     //this.socket.close();
   }
