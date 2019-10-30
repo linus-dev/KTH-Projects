@@ -7,7 +7,7 @@ public class Game {
   private static List<String> words;
   static {
     try {
-      words = Files.readAllLines(Paths.get("../words.txt"), StandardCharsets.UTF_8); 
+      words = Files.readAllLines(Paths.get("./words.txt"), StandardCharsets.UTF_8); 
     } catch (Exception e) {
       System.out.println("welp");
     }
