@@ -60,9 +60,9 @@ public class Connection implements Runnable {
           case -1: {
             /* Player lost, output full word and request new one. */
             output.writeInt(-1); 
-            output.writeChars(new String(this.session_.GetWord()));
+            output.writeUTF(this.session_.RevealWord());
             this.session_.NewWord();
-            output.writeChars(new String(this.session_.GetWord())); 
+            output.writeUTF(new String(this.session_.GetWord())); 
             break;
           }
           case 0: {

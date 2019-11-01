@@ -30,6 +30,10 @@ public class Game {
     System.out.println(this.word_);
   }
   
+  public String RevealWord() {
+    return this.word_;
+  }
+
   public char[] GetWord() {
     return this.guessed_;
   }
