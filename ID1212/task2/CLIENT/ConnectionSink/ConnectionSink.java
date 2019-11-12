@@ -1,3 +1,4 @@
+package ConnectionSink;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -7,7 +8,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
-class ConnectionSink implements Runnable {
+public class ConnectionSink implements Runnable {
   private Selector sel;
   private SocketChannel ch;
 

@@ -21,6 +21,63 @@ public class Game {
   public Game() {
     this.NewWord();   
   }
+  
+  /* Command parser. */
+  private static String[] ParseCMD(String request) {
+    String[] full_str = request.replace("\r", "")
+                               .replace("\n", "")
+                               .split(" ");
+
+    return full_str;
+  }
+
+  public void Process(String data) {
+    String[] player_cmd = this.ParseCMD(new String(data));
+    String cmd = player_cmd[0];
+    int state = -100;
+
+    if (cmd.equals("guess")) {
+      /* Result of command. */
+
+      /* Get sent argument. */
+      String arg = player_cmd[1];
+
+      int result = this.Guess(arg);
+      System.out.println("Client guessing: " + arg);
+      
+      switch (result) {
+        case -1: {
+          /* Player lost, output full word and request new one. */
+          this.RevealWord();
+          this.NewWord();
+          state = -1;
+          break;
+        }
+        case 0: {
+          /* Player guessed incorrectly. */
+          this.GetAttempts(); 
+          state = 0;
+          break;
+        }
+        case 1: {
+          /* Player guessed a letter correctly. Output unmasked letters. */
+          state = 1; 
+          break;
+        }
+        case 2: {
+          /* Player won, output full word and request new one. */
+          this.NewWord();
+          state = 2;
+          break;
+        }
+      }
+    } else if (cmd.equals("quit")) { 
+      /* Client requesting a quit. */
+      System.out.println("Socket closed!");
+      state = -50;
+    }
+    return state;
+  }
 
   public void NewWord() {
     this.word_ = this.words.get((int)(Math.random() * this.words.size()));
@@ -66,9 +123,11 @@ public class Game {
     }
     return return_state;
   }
+
   public int GetAttempts() {
     return this.attempts_;
   }
+
   public int Guess(String arg) {
     int state = 0;
     System.out.println(arg.length());

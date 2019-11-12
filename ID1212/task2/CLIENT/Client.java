@@ -7,6 +7,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import ConnectionSink.*;
+import Wave.*;
 
 public class Client {
   public static void main(String[] args) {
@@ -35,11 +36,14 @@ public class Client {
 
       Scanner in = new Scanner(System.in);   
       String cmd = "";
-
+      int written = 0;
       while (true) {
         cmd = in.nextLine();
+        Wave.Message wave_msg = new Wave.Message(cmd.getBytes());
         /* TODO: If write returns 0 then ask for OP_WRITE. */
-        ch.write(ByteBuffer.wrap(cmd.getBytes()));
+        System.out.println("Writing to server...");
+        written = ch.write(wave_msg.GetMessage());
+        System.out.println(wave_msg.GetMessage());
       }
     } catch (Exception e) {
       System.out.println(e); 
