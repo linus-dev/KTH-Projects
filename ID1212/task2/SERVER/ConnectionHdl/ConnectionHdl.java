@@ -20,13 +20,9 @@ public class ConnectionHdl {
   private Map<SocketChannel, Game> game_tracking = new HashMap<>();
   private ServerSocketChannel srv_ch;
   private Selector sel;
-
-  /* Command Processor. */
-  private CommandCentre cmd_centre_;
  
   /* Init nio. */
   public ConnectionHdl() throws Exception {
-    this.cmd_centre_ = new CommandCentre();
 
     this.srv_ch = ServerSocketChannel.open();
     this.srv_ch.configureBlocking(false);
