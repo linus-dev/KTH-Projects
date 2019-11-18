@@ -69,38 +69,51 @@ public class ConnectionHdl {
     
     System.out.println("Received: " + new String(data));
     System.out.println("Length: " + new String(data).length());
-    this.Response(channel, session, data);
+    this.Response(channel, data);
   }
 
-  private void Response(SocketChannel ch, Game session, byte[] data) throws Exception {
-    long result = session.Process(new String(data));
+  private void Response(SocketChannel channel, byte[] data) throws Exception {
+    Game session = game_tracking.get(channel);
+    int result = session.Process(new String(data));
+    
     ByteBuffer response = ByteBuffer.allocate(8 + 1024);
-
+    String response_string = "";
     switch (result) {
       case -1: {
         /* Player lost, output full word and request new one. */
+        response_string = "-1::" + session.RevealWord();
+        session.NewWord();
+        response_string += "::" + new String(session.GetWord());
         break;
       }
       case 0: {
         /* Player guessed incorrectly. */
+        response_string = "0::" + session.GetAttempts(); 
         break;
       }
       case 1: {
         /* Player guessed a letter correctly. Output unmasked letters. */
+        response_string = "1::" + new String(session.GetWord());
         break;
       }
       case 2: {
+        response_string = "2::" + session.RevealWord();
+        session.NewWord();
+        response_string += "::" + new String(session.GetWord());
         /* Player won, output full word and request new one. */
         break;
       }
     }
+    response.putLong(response_string.length());
+    response.put(response_string.getBytes());
+    response.flip();
+    channel.write(response);
   }
 
   private void Loop() throws Exception {
     /* Loop and accept sockets! */
     while (true) {
       this.sel.select();
-      System.out.println("Selecting");
       Iterator<SelectionKey> keys = this.sel.selectedKeys().iterator();
 
       while (keys.hasNext()) {

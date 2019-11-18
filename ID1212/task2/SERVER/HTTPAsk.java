@@ -1,7 +1,3 @@
-//import java.net.*;
-//import java.io.*;
-//import java.nio.*;
-//import java.util.*; 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -27,9 +23,6 @@ public class HTTPAsk {
     } catch (Exception e) {
       System.out.println(e);
     }
-    //ServerSocket srv = new ServerSocket(args.length < 1 ? 8888 : Integer.parseInt(args[0]));
-    
   }
-
 }
 

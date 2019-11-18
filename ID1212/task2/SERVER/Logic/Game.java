@@ -31,7 +31,7 @@ public class Game {
     return full_str;
   }
 
-  public void Process(String data) {
+  public int Process(String data) {
     String[] player_cmd = this.ParseCMD(new String(data));
     String cmd = player_cmd[0];
     int state = -100;
@@ -48,14 +48,11 @@ public class Game {
       switch (result) {
         case -1: {
           /* Player lost, output full word and request new one. */
-          this.RevealWord();
-          this.NewWord();
           state = -1;
           break;
         }
         case 0: {
           /* Player guessed incorrectly. */
-          this.GetAttempts(); 
           state = 0;
           break;
         }
@@ -66,7 +63,6 @@ public class Game {
         }
         case 2: {
           /* Player won, output full word and request new one. */
-          this.NewWord();
           state = 2;
           break;
         }
@@ -130,8 +126,6 @@ public class Game {
 
   public int Guess(String arg) {
     int state = 0;
-    System.out.println(arg.length());
-    System.out.println(arg);
     if (arg.length() == 1) {
       if (this.word_.indexOf(arg) != -1) { 
         /* Find all occurances. */
@@ -145,8 +139,6 @@ public class Game {
     }
     
     System.out.println(new String(this.guessed_));
-    System.out.println(this.word_);
-    System.out.println(new String(this.guessed_).equals(this.word_));
     if (this.word_.equals(arg) || new String(this.guessed_).equals(this.word_)) {
       this.guessed_ = this.word_.toCharArray();
       state = 2;

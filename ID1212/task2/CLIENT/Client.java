@@ -41,9 +41,7 @@ public class Client {
         cmd = in.nextLine();
         Wave.Message wave_msg = new Wave.Message(cmd.getBytes());
         /* TODO: If write returns 0 then ask for OP_WRITE. */
-        System.out.println("Writing to server...");
         written = ch.write(wave_msg.GetMessage());
-        System.out.println(wave_msg.GetMessage());
       }
     } catch (Exception e) {
       System.out.println(e); 

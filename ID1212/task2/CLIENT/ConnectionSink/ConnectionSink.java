@@ -39,7 +39,6 @@ public class ConnectionSink implements Runnable {
           
           /* If recv from server. */
           if (key.isReadable()) {
-            System.out.println("Reading from server.");
             this.ReadHdl(key);
           }
         }
@@ -52,37 +51,68 @@ public class ConnectionSink implements Runnable {
   /* Handle reading */
   private boolean ReadHdl(SelectionKey key) throws Exception {
     SocketChannel ch = (SocketChannel) key.channel();
-    ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-    readBuffer.clear();
+    ByteBuffer read_buffer = ByteBuffer.allocate(1024);
+    read_buffer.clear();
     int length;
+    int read;
 
-    try {
-      length = ch.read(readBuffer);
-    } catch (IOException e) {
-      System.out.println("Reading problem, closing connection");
-      try {
-        key.cancel();
-        ch.close();
-      } catch (Exception er) {
-        System.out.println(er);
-      }
-      return true;
-    }
-    if (length == -1) {
-      System.out.println("Nothing was read from server");
-      try {
-        key.cancel();
-        ch.close();
-      } catch (Exception er) {
-       System.out.println(er);
-      }
-      return true;
-    }
-    readBuffer.flip();
-    byte[] buff = new byte[1024];
-    readBuffer.get(buff, 0, length);
-    System.out.println("Server said: " + new String(buff));
+    read = ch.read(read_buffer);
 
+    if (read == -1) {
+      System.out.println("Nothing was there to be read, closing connection");
+      ch.close();
+      key.cancel();
+      return false;
+    }
+
+    /* Flip buffer to read. */
+    long data_length = 0;
+    read_buffer.flip();
+    /* Get message length */
+    data_length = read_buffer.getLong(); 
+    
+    /* Get actual data. */
+    byte[] data = new byte[(int)data_length];
+    read_buffer.get(data, 0, (int)data_length);
+    
+    String[] res = new String(data).split("::");
+
+    switch (Integer.parseInt(res[0])) {
+      case -10: {
+        System.out.println("Invalid command.");
+        break;
+      }
+      case -1: { 
+        System.out.println("You lost, nerd.");
+        String word = res[1];
+        System.out.println(String.format("The word was %s.", word));
+        System.out.println("-New Word-");
+        System.out.println(res[2]);
+        break;
+      }
+      case 0: {
+        int attempts = Integer.parseInt(res[1]); 
+        System.out.println("You guessed incorrectly.");
+        System.out.println(String.format("You have %d attempts left", attempts));
+        break;
+      }
+      case 1: {
+        String word = res[1];  
+        System.out.println(word);
+        break; 
+      }
+      case 2: {
+        System.out.println("You won!");
+        
+        String word = res[1];
+        System.out.println(String.format("The word was %s.", word));
+        System.out.println("-New Word-");
+        word = res[2]; 
+        System.out.println(word);
+        break;
+      }
+    }
+    
     return true; 
   }
 
