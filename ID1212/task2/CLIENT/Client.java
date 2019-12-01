@@ -39,9 +39,13 @@ public class Client {
       int written = 0;
       while (true) {
         cmd = in.nextLine();
-        Wave.Message wave_msg = new Wave.Message(cmd.getBytes());
-        /* TODO: If write returns 0 then ask for OP_WRITE. */
-        written = ch.write(wave_msg.GetMessage());
+        if (cmd.equals("quit")) {
+          System.out.println("Quitting...");
+        } else {
+          Wave.Message wave_msg = new Wave.Message(cmd.getBytes());
+          /* TODO: If write returns 0 then ask for OP_WRITE. */
+          written = ch.write(wave_msg.GetMessage());
+        }
       }
     } catch (Exception e) {
       System.out.println(e); 

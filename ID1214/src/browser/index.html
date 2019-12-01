@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8">
+    <title>Armour RPG</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="js/socket.io.js"></script>
+    <script src="js/nlp.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/compromise@latest/builds/compromise.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.1.10/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/json3/3.3.2/json3.min.js"></script>
+    <script src="https://rawgit.com/kawanet/msgpack-lite/master/dist/msgpack.min.js"></script>
+  </head>
+  <body>
+    <div id="console">
+    </div>
+    <div id="cmd">
+      <input id="cmd_txt" type="text">
+    </div>
+  </body>
+  <script type="text/javascript">
+    function PrintToTerminal(msg, time = null) {
+      var time_str = '[' + time + ']: ';
+      msg = (time ? time_str + msg : msg);
+      $('#console').append('<span class="cmd_line">' + msg + '</span>');
+      $("#console").scrollTop($("#console")[0].scrollHeight);
+    }
+    
+    /* Send command to server. */
+    function SendCmd(cmd) {
+      $('#cmd_txt').val('');
+      PrintToTerminal(cmd)
+      GetVerbs(cmd);
+      exampleSocket.send(cmd);
+    }
+    
+    /* On enter. */
+    $('#cmd_txt').keypress(function (e) {
+      if (e.which == 13) {
+        var cmd = $('#cmd_txt').val();
+        SendCmd(cmd);
+        return false;
+      }
+    });
+    var exampleSocket = new WebSocket("ws://localhost:8080");
+    exampleSocket.binaryType = "arraybuffer";
+    exampleSocket.onopen = function (event) {
+      PrintToTerminal("Connected to the Armour server.");
+    };
+    exampleSocket.onclose = function (event) {
+      PrintToTerminal("Disconnected from the Armour server.");
+    };
+    exampleSocket.onmessage = function (event) {
+      var data = {msg: ""};
+      if (typeof(event.data) == "string") {
+        console.log(event.data);
+        data.msg = event.data;
+      } else {
+        data = msgpack.decode(new Uint8Array(event.data));
+      }
+      PrintToTerminal(data.msg);
+      for (var i in data.data) {
+        PrintToTerminal(data.data[i], data.time);
+      }
+    }
+    /* Socket setup. */
+    /*var socket = io('http://localhost:8080');
+    socket.on('connect', function(){PrintToTerminal("Connected");});
+    socket.on('event', function(data){});
+    socket.on('disconnect', function(){});*/
+  </script>
+</html>
