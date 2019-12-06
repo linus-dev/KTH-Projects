@@ -84,6 +84,10 @@ public class Client {
 
       /* Get File */
       if (input.equals("3") && server != null) {
+        System.out.println("--- Get File ---");
+        System.out.print("Filename: ");
+        String filename = in.nextLine();
+        server.GetFile(filename);
          
       }
       /* Upload File */

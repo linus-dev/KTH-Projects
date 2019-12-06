@@ -9,17 +9,39 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
-    <div id="console">
-    </div>
-    <div id="cmd">
-      <input id="cmd_txt" type="text">
-    </div>
+      <div id="console_wrapper">
+        <div id="console">
+          <pre class="cmd_line">
+##      ##  #######  ########  ########  
+##  ##  ## ##     ## ##     ## ##     ## 
+##  ##  ## ##     ## ##     ## ##     ## 
+##  ##  ## ##     ## ########  ########  
+##  ##  ## ##     ## ##        ##   ##   
+##  ##  ## ##     ## ##        ##    ##  
+ ###  ###   #######  ##        ##     ## 
+          </pre>
+        </div>
+        <span>
+          $> <input id="cmd_txt" type="text" autofocus>
+        </span>
+      </div> 
   </body>
   <script type="text/javascript">
     var allow_msg = false;
     
-    function PrintToTerminal(msg) {
-      $('#console').append('<span class="cmd_line">' + msg + '</span>');
+    function PrintToTerminal(msg, cmd) {
+      $('#console').append('<pre class="cmd_line' + (cmd ? ' cmd' : '') + '">' + (cmd ? '$> ' : '') + msg + '</pre>');
+      $("#console").scrollTop($("#console")[0].scrollHeight);
+    }
+    
+    function PrintBusiness(business) {
+      var bs = '<div class="business">';
+      bs = bs + business.name + '</br>';
+      bs = bs + 'Address: ' + business.location.address1 + '</br>';
+      bs = bs + 'Price: ' + business.price + '</br>';
+      bs = bs + 'Rating: ' + business.rating + '</br>';
+      bs = bs + business.display_phone + '</br>';
+      $('#console').append(bs);
       $("#console").scrollTop($("#console")[0].scrollHeight);
     }
     
@@ -29,7 +51,7 @@
         return;
       
       $('#cmd_txt').val('');
-      PrintToTerminal(msg);
+      PrintToTerminal(msg, true);
       
       var params = {
         session: session_id,
@@ -56,11 +78,22 @@
       session_id = resp.result.session_id;
       allow_msg = true;
       console.log(resp);
-    });
+      PrintToTerminal('', false);
+      PrintToTerminal(' Welcome to WOPR.          ', false);
+      PrintToTerminal(' Shall we find some restaurants?.', false);
+      PrintBusiness('yolo');
+      });
     
     socket.on('WATSON::ASSISTANT::MESSAGE::ANSWER', function(resp) {
       console.log(resp);
-      PrintToTerminal(resp.result.output.generic[0].text);
+      for(var i = 0; i < resp.result.output.generic.length; i++) {
+        PrintToTerminal(resp.result.output.generic[i].text, false);
+      }
+    });
+    socket.on('BENBOT::SUGGESTIONS', function(resp) {
+      for(var i = 0; i < resp.length; i++) {
+        PrintBusiness(resp[i]);
+      }
     });
   </script>
 </html>

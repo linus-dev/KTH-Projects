@@ -22,6 +22,7 @@ class DBHdl {
 
   DBHdl() {
     try {
+      
       this.data_source = new MysqlDataSource();
       this.data_source.setUser("FS");
       this.data_source.setPassword("");
@@ -33,6 +34,7 @@ class DBHdl {
       this.add_file_stmt = conn.prepareStatement(ADD_FILE_STR);
       this.user_stmt = conn.prepareStatement(ADD_USER_STR);
       this.login_stmt = conn.prepareStatement(LOGIN_STR);
+    
     } catch (Exception e) {
       System.out.println(e);
     }
@@ -64,6 +66,7 @@ class DBHdl {
   }
 }
 
+/* I'm okay with this... I think. */
 public class FileSystem {
   private static FileSystem FS;
   private DBHdl db;
@@ -91,12 +94,16 @@ public class FileSystem {
     return this.db.AddFile(name, size, user);
   }
 
-  public synchronized String GetFile(String name) throws Exception {
-    ResultSet rs = this.db.GetFile("whack");
+  public synchronized Map<String, String> GetFile(String name) throws Exception {
+    ResultSet rs = this.db.GetFile(name);
+    Map<String, String> ret = null; 
     if (rs.next()) {
-      return rs.getString(1) + ':' + rs.getInt(2);
+      ret = new HashMap<>();
+      ret.put("filename", rs.getString(2));
+      ret.put("size", Integer.toString(rs.getInt(3)));
+      ret.put("owner", rs.getString(4));
     }
-    return "";
+    return ret;
   }
 
   public static FileSystem GetFS() {

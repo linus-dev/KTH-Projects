@@ -1,44 +1,83 @@
 /* Pretty little colours. */
 
 body {
-  background-color: #000000;
-}
-#console {
-  border: 1px solid white;
-  background-color: #000000;
-  
-  font-family: 'VT323', cursive;
-  font-size: 22px;
-  color: #33ff33;
-  
-  max-width: 37rem;
-  min-width: 20rem;
-  min-height: 20rem;
-  max-height: 20rem;
-  overflow: auto;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: white;
+  font: 1.3rem Inconsolata, monospace;
+  text-shadow: 0 0 5px #C8C8C8;
 }
 
-#cmd {
-  border: 1px solid white;
-  border-top-width: 1px;
-  border-top-style: solid;
-  border-top-color: #f4f4f4;
-  background-color: #000000;
-  font-size: "Lucida Console"
+#console_wrapper {
+  margin: 0;
+  padding: 0;
+  font: 1.3rem Inconsolata, monospace;
   color: #33ff33;
-  max-width: 37rem;
-  min-width: 20rem;
-  min-height: 1rem;
+}
+
+#console {
+  display:inline-block;
+  background-color: #000000;
+  font-size: 22px;
+  color: #33ff33;
+  width: 100vw;
+  max-height: 97vh;
+  overflow: hidden;
 }
 
 #cmd_txt {
-  width: 99.3%;
-  font-size: "Lucida Console"
-  font-size: 20px;
+  font: 1.3rem Inconsolata, monospace;
+  min-width: 80vw;
+  height: 3vh;
+  background-color: black;
+  color: #33ff33;
+  border: none;
+  text-shadow: 0 0 5px #C8C8C8;
 }
-
+.business {
+  display: inline-block;
+  border: 2px solid #33ff33;
+  box-shadow: 0 0 5px #C8C8C8;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 4px;
+  max-width: 25rem;
+}
 .cmd_line {
   display: block;
   margin-top: 0px;
   margin-bottom: -6px;
+  max-width: 70vw;
+}
+.cmd {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15) 1px, transparent 1px, transparent 2px);
+  pointer-events: none;
+}
+
+::selection {
+  background: #0080FF;
+  text-shadow: none;
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;       /* css-3 */
+  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;      /* Opera 4-6 */
+  white-space: -o-pre-wrap;    /* Opera 7 */
+  word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }

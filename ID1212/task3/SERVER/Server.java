@@ -11,32 +11,41 @@ import Wave.Chat;
 import FS.FileSystem;
 import java.util.*;
 
+/* User Session */
 class USession extends UnicastRemoteObject implements Wave.Session {
   private String username;
 
   /* For user messaging... or something... */
   private static Map<String, Chat> participants = Collections.synchronizedMap(new HashMap<>());
+  private static FileSystem fs = FileSystem.GetFS();
 
   protected USession(String user, Chat ch) throws RemoteException {
     super();
     this.username = user;
-    /* Add our new session. */
+    /* Add our new participant. */
     USession.participants.put(user, ch);
   }
+
   @Override
-  public String GetFile(String name) throws RemoteException {
-    FileSystem fs = FileSystem.GetFS();
+  public Map<String, String> GetFile(String name) throws RemoteException {
     try {
-      return fs.AddFile(name, size, this.username);
+      Map<String, String> ret = fs.GetFile(name);
+      String owner = ret.get("owner");
+      if (ret != null) {
+        if (USession.participants.containsKey(owner) &&
+            !owner.equals(this.username)) {
+          USession.participants.get(owner).Send(this.username + " accessed " + ret.get("filename"));
+        }
+        return ret; 
+      }
     } catch (Exception e) {
       System.out.println(e);
     }
-    return false;
+    return null;
   }
 
   @Override
   public boolean Upload(String name, int size) throws RemoteException {
-    FileSystem fs = FileSystem.GetFS();
     try {
       return fs.AddFile(name, size, this.username);
     } catch (Exception e) {
