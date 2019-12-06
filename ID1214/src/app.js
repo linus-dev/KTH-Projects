@@ -67,7 +67,7 @@ function SendToAssistant(client, params) {
       const searchRequest = {
         term: skills.type_of_food + ' restaurant',
         location: skills.location,
-        open_at: new Date(skills.time).getTime()
+        //open_at: new Date(skills.time).getTime()
       };
       console.log(new Date(skills.time));
       YELP_CLIENT.search(searchRequest).then(response => {
