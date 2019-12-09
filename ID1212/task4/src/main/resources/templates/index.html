@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>Spring MVC Thymeleaf</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/mystyle.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+<nav th:replace="fragments/nav :: nav"></nav>
+
+<p th:text="'Hello, ' + ${name} + '!'" />
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
