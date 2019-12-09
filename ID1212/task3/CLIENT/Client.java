@@ -31,6 +31,7 @@ public class Client {
     System.out.println("2 Register");
     System.out.println("3 Get File");
     System.out.println("4 Upload File");
+    System.out.println("5 Logout");
     System.out.println("q Quit");
   }
 
@@ -87,8 +88,18 @@ public class Client {
         System.out.println("--- Get File ---");
         System.out.print("Filename: ");
         String filename = in.nextLine();
-        server.GetFile(filename);
-         
+        Map<String, String> rs = server.GetFile(filename);
+        if (rs != null) {
+          System.out.println("--- File Info ---"); 
+          System.out.print("Filename: "); 
+          System.out.println(rs.get("filename")); 
+          System.out.print("Size: "); 
+          System.out.println(rs.get("size")); 
+          System.out.print("Owner: "); 
+          System.out.println(rs.get("owner")); 
+        } else {
+          System.out.println("Invalid filename.");
+        }
       }
       /* Upload File */
       if (input.equals("4") && server != null) {
@@ -96,6 +107,13 @@ public class Client {
         System.out.print("Filename: ");
         String filename = in.nextLine();
         server.Upload(filename, (int)(Math.random() * 1000.0));
+      }
+      
+      /* Upload File */
+      if (input.equals("5") && server != null) {
+        System.out.println("Logging out");
+        server.LogOut();
+        server = null;
       }
     }
   }

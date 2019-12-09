@@ -16,25 +16,25 @@ class USession extends UnicastRemoteObject implements Wave.Session {
   private String username;
 
   /* For user messaging... or something... */
-  private static Map<String, Chat> participants = Collections.synchronizedMap(new HashMap<>());
+  private static Map<String, Chat> online_users = Collections.synchronizedMap(new HashMap<>());
   private static FileSystem fs = FileSystem.GetFS();
 
   protected USession(String user, Chat ch) throws RemoteException {
     super();
     this.username = user;
     /* Add our new participant. */
-    USession.participants.put(user, ch);
+    USession.online_users.put(user, ch);
   }
 
   @Override
   public Map<String, String> GetFile(String name) throws RemoteException {
     try {
       Map<String, String> ret = fs.GetFile(name);
-      String owner = ret.get("owner");
       if (ret != null) {
-        if (USession.participants.containsKey(owner) &&
+        String owner = ret.get("owner");
+        if (USession.online_users.containsKey(owner) &&
             !owner.equals(this.username)) {
-          USession.participants.get(owner).Send(this.username + " accessed " + ret.get("filename"));
+          USession.online_users.get(owner).Send(this.username + " accessed " + ret.get("filename"));
         }
         return ret; 
       }
@@ -53,8 +53,15 @@ class USession extends UnicastRemoteObject implements Wave.Session {
     }
     return false;
   }
+
+  @Override
+  public boolean LogOut() throws RemoteException {
+    online_users.remove(this.username);
+    return true;
+  }
 }
 
+/* Auth handler */
 public class Server extends UnicastRemoteObject implements Wave.RMIInterface{
   protected Server() throws RemoteException {
     super();

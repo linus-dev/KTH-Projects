@@ -10,9 +10,9 @@ class DBHdl {
   private Connection conn;
   
   private final String GET_FILE_STR = "SELECT * FROM FS.Files WHERE FileName = ?";
-  private final String ADD_FILE_STR = "INSERT INTO FS.Files VALUES (null, ?, ?, ?)";
+  private final String ADD_FILE_STR = "INSERT INTO FS.Files VALUES (?, ?, ?)";
   
-  private final String ADD_USER_STR = "INSERT INTO FS.users VALUES (null, ?, ?)";
+  private final String ADD_USER_STR = "INSERT INTO FS.users VALUES (?, ?)";
   private final String LOGIN_STR = "SELECT * FROM FS.users WHERE username = ? AND password = ?";
 
   private PreparedStatement get_file_stmt = null;
@@ -99,9 +99,9 @@ public class FileSystem {
     Map<String, String> ret = null; 
     if (rs.next()) {
       ret = new HashMap<>();
-      ret.put("filename", rs.getString(2));
-      ret.put("size", Integer.toString(rs.getInt(3)));
-      ret.put("owner", rs.getString(4));
+      ret.put("filename", rs.getString(1));
+      ret.put("size", Integer.toString(rs.getInt(2)));
+      ret.put("owner", rs.getString(3));
     }
     return ret;
   }
