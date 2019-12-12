@@ -1,25 +1,58 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
-
-    <title>Spring MVC Thymeleaf</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/mystyle.css" rel="stylesheet"/>
-</head>
-
-<body>
-
-<nav th:replace="fragments/nav :: nav"></nav>
-
-<p th:text="'Hello, ' + ${name} + '!'" />
-
-<div th:replace="fragments/footer :: footer"></div>
-
-</body>
+	<head>
+		<meta charset="ISO-8859-1">
+		<link href = "css/style.css" rel = "stylesheet"/>
+		<title>Converter</title>
+	<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous"></script>
+  </head>
+	<body>
+		<h1>Currency Converter</h1>
+		<div class="container">
+      <form id="conv">
+ 			    <label for="currencyFrom">Currency exchange from</label>
+    			<select id="currencyFrom" name="currencyFrom">
+      				<option value="sek">SEK</option>
+      				<option value="usd">USD</option>
+      				<option value="eur">EUR</option>
+      				<option value="gbp">GBP</option>
+    			</select>
+    			<label for="currencyTo">Currency exchange to</label>
+    			<select id="currencyTo" name="currencyTo">
+      				<option value="sek">SEK</option>
+      				<option value="usd">USD</option>
+      				<option value="eur">EUR</option>
+      				<option value="gbp">GBP</option>
+    			</select>
+    			<label for="amount">Amount of currency</label>
+    			<input type="text" id="amount" name="amount" placeholder="The amount you want to convert..">
+    			<input type="submit" value="Exchange">
+          <input type="text" id="ex" placeholder="0" disabled>
+  			</form>
+    <script>
+      $('#conv').on('submit', function(e) { //use on if jQuery 1.7+
+        e.preventDefault();  //prevent form from submitting
+        var json = {};
+        json.a = $('#currencyFrom option:selected').text();
+        json.b = $('#currencyTo option:selected').text();
+        json.amount = $('#amount').val();
+        console.log(json);
+        $.ajax({ 
+          url: encodeURI('http://localhost:8080/convert'),
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify(json), //Stringified Json Object
+          dataType: 'json',
+          cache: false,    //This will force requested pages not to be cached by the browser  
+          success: function(response){
+            $('#ex').val(response + ' ' + $('#currencyTo option:selected').text());
+          }
+        });
+      });
+    </script>
+		</div>
+	</body>
 </html>
