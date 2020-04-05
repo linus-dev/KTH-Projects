@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The HTML5 Herald</title>
+  <meta name="description" content="Drink-A-Lot 3000">
+  <link rel="stylesheet" href="css/style.css?v=1.0">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/base.css?v=1.0">
+  <script src="js/jquery-3.4.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script type="text/javascript" src="js/nouislider.js"></script>
+  <script type="text/javascript" src="js/jqtouch.js"></script>
+  <script src="js/countdown.js"></script>
+  <script src="js/socket.io.js"></script>
+</head>
+<body>
+  <div id="wrapper">
+    <!-- Background loop -->
+    <div id="bg-wrapper">
+      <video autoplay muted loop id="bg">
+        <source src="videos/grid.webm" type="video/webm">
+      </video>
+    </div>
+    <div id="center-wrap">
+      <div id="text-wrap">
+        <span id="logo" class="tex glow yellow">The GD Studio</span>
+        <span id="year" class="tex glow blue">2 0 2 0</span>
+        <span class="tex glow white">NEW YEARS PARTY</span>
+      </div>
+      
+      <div id="mixer-wrap">
+        <div id="countdown" class="glow"></div>
+        <div id="mixer-slider"></div>
+        <div id="mixer-button-wrapper">
+          <button id="pour" type="button">
+            POUR!
+          </button> 
+          <button id="roll" type="button">
+            ROLL!
+          </button> 
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="js/scripts.js"></script>
+  <svg version="1.1"  xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur id="glowfeGaussianBlur" stdDeviation="5.1" result="blur"/>
+        <feMerge>
+          <feMergeNode in="blur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
+</body>
+</html>

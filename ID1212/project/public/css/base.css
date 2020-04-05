@@ -1,0 +1,68 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  text-align: center;
+  background: #111;
+}
+
+button {
+  font-family: 'road-rage', cursive;
+  border: 1px solid #fe7d68;
+  height: 5rem;
+  box-shadow: 1px 0px 30px 0px rgb(37, 6, 45);
+  color: #ffffff;
+  width: 100%;
+  font-size: 3rem;
+  background: rgb(249,46,144);
+  background: linear-gradient(180deg, rgb(249, 213, 2) 00%, rgb(249, 35, 145) 100%);
+  color: #ffffff;
+}
+
+#bg {
+  position: fixed;
+  top: 50%; 
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  z-index: -1000; 
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: abduction;
+  src: url(fonts/abduction2002.ttf);
+}
+
+@font-face {
+  font-family: outrun;
+  src: url(fonts/outrun.otf);
+}
+
+@font-face {
+  font-family: still-time;
+  src: url(fonts/stilltime.ttf);
+}
+
+@font-face {
+  font-family: road-rage;
+  src: url(fonts/Road_Rage.otf);
+}
+
+@font-face {
+  font-family: streamster;
+  src: url(fonts/Streamster.ttf);
+}
+
+@font-face {
+  font-family: Lazer84;
+  src: url(fonts/Lazer84.ttf);
+}
+
+@font-face {
+  font-family: indelible;
+  src: url(fonts/Indelible.otf);
+}
+

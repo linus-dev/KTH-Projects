@@ -16,9 +16,11 @@ class ReqBody {
 public class ConvController {
   @Autowired
   private JdbcTemplate jdbc_template_;
+  
   @Transactional
   @RequestMapping(value = "/convert", method = RequestMethod.POST)
   public double Convert(Model model, @RequestBody ReqBody req) {
+    /* Should probably escape this. */
     String QUERY = "SELECT ratio FROM Currencies.Currencies WHERE name = ?";
     double ratio_a = jdbc_template_.queryForObject(QUERY, Double.class, req.a);
     double ratio_b = jdbc_template_.queryForObject(QUERY, Double.class, req.b);
